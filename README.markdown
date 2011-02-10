@@ -22,7 +22,12 @@ Todo
 
 * Redirect `stdout` and `stderr` to a StringIO object instead of `/dev/null` unless someone tells me that the latter works on Windows. 
 * Maybe add some sort of method blacklist so they won’t get tried in the block.
-* Package this as a gem.
+
+
+Thanks
+---
+
+* Matthem Lucas for packaging it as a gem.
 
 License
 ---
