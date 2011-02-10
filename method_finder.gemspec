@@ -1,5 +1,5 @@
 Gem::Specification.new do |gem|
-  gem.name = 'methodfinder'
+  gem.name = 'method_finder'
   gem.version = '1.0.0'
   gem.author = 'Michael Kohl'
   gem.email = 'citizen428@gmail.com'
