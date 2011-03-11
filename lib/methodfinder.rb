@@ -1,3 +1,5 @@
+require 'stringio'
+
 class MethodFinder
   ARGS = {
     :cycle => [1] # prevent cycling forever
@@ -21,8 +23,8 @@ class MethodFinder
   def self.redirect_streams
     @orig_stdout = $stdout
     @orig_stderr = $stderr
-    $stdout = File.new('/dev/null', 'w')
-    $stderr = File.new('/dev/null', 'w')
+    $stdout = StringIO.new
+    $stderr = StringIO.new
   end
 
   def self.restore_streams

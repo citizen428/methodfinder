@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'methodfinder'
-  gem.version = '1.0.0'
+  gem.version = '1.0.1'
   gem.author = 'Michael Kohl'
   gem.email = 'citizen428@gmail.com'
   gem.summary = 'A Smalltalk-like Method Finder for Ruby'
