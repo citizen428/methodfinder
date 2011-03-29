@@ -8,7 +8,7 @@ that produce the result when called on the receiver with the arguments.
 Usage
 ---
 
-    >> Methodfinder.find(10,1,3)
+    >> MethodFinder.find(10,1,3)
     => [:%, :<=>, :>>, :[], :modulo, :remainder]
     >> MethodFinder.find("abc","ABC")
     => [:swapcase, :swapcase!, :upcase, :upcase!]
