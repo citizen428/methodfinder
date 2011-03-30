@@ -17,10 +17,25 @@ Usage
     >> MethodFinder.find(['a','b','c'],['A','B','C']) { |x| x.upcase }
     => [:collect, :collect!, :map, :map!]
 
+Warning
+---
+
+Common sense not included!
+
+While I never had any problems with this, it's still better to be
+save than sorry, so use this with caution and maybe not on production
+data. 
+
+I initially wrote this for the students of the core Ruby course on
+[RubyLearning](http://rubylearning.org), so Rails is not of interest
+to me (not saying it doesn't work there, just that I test in plain
+IRB, not with `script/console`).  
+
 Todo
 ---
 
-* none at the moment
+* a method black list
+* maybe an alternate form of calling this (issue #3)
 
 
 Thanks
