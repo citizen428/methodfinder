@@ -23,7 +23,7 @@ Warning
 Common sense not included!
 
 While I never had any problems with this, it's still better to be
-save than sorry, so use this with caution and maybe not on production
+safe than sorry, so use this with caution and maybe not on production
 data. 
 
 I initially wrote this for the students of the core Ruby course on
