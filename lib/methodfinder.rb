@@ -1,5 +1,15 @@
 require 'stringio'
 
+class Object
+  def find_method(*args, &block)
+    self.methods.sort.map(&:intern).map do |met|
+      self.class.class_eval %{ alias :unknown #{met} }
+      obj = self.dup rescue self
+      [met, (yield obj rescue nil)]
+    end.select(&:last).map(&:first)
+  end
+end
+
 class MethodFinder
   ARGS = {
     :cycle => [1] # prevent cycling forever

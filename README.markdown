@@ -17,6 +17,19 @@ Usage
     >> MethodFinder.find(['a','b','c'],['A','B','C']) { |x| x.upcase }
     => [:collect, :collect!, :map, :map!]
 
+Thanks to a
+[suggestion](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
+by Ryan Bates, this gem now also provides an alternative interface:
+
+    >> %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
+    => [:delete_at, :slice!]
+    >> 10.find_method { |n| n.unknown(3) == 1 }
+    => [:%, :<=>, :>>, :[], :gcd, :modulo, :remainder]
+
+Inside `find_method`'s block, the receiver is available as block
+argument the special method `unknown` is used as a placeholder for the
+desired method.
+
 Warning
 ---
 

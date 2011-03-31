@@ -18,4 +18,8 @@ class TestMethodFinder < MiniTest::Unit::TestCase
     MethodFinder.find(%w(a b), %w(A B)) { |x| x.upcase }
   end
 
+  def test_block_interface
+    assert_equal [:delete_at, :slice!],
+    %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
+  end
 end
