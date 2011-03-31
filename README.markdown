@@ -1,9 +1,18 @@
 Description
 ---
 
-A Smalltalk-like Method Finder for Ruby. Provided with a receiver, a
-desired result and possibly some arguments, it will list all methods
-that produce the result when called on the receiver with the arguments.
+This project was inspired by Smalltalk's Method Finder. 
+
+Provided with a receiver, a desired result and possibly some
+arguments, `MethodFinder.find` will list all methods that produce the
+given result when called on the receiver with the provided arguments.
+
+This gem also adds `Object#find_method`, which besides offering an
+alternate interface to pretty much the same functionality, also allows
+you to test for state other than the return value of the method. 
+
+All of this probably sounds more complicated than it really is, just
+look at the examples below.
 
 Usage
 ---
@@ -27,8 +36,8 @@ by Ryan Bates, this gem now also provides an alternative interface:
     => [:%, :<=>, :>>, :[], :gcd, :modulo, :remainder]
 
 Inside `find_method`'s block, the receiver is available as block
-argument the special method `unknown` is used as a placeholder for the
-desired method.
+argument and the special method `unknown` is used as a placeholder for
+the desired method.
 
 Warning
 ---
