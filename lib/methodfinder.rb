@@ -2,11 +2,11 @@ require 'stringio'
 
 class Object
   def find_method(*args, &block)
-    self.methods.sort.map(&:intern).map do |met|
+    self.methods.sort.map(&:intern).select do |met|
       self.class.class_eval %{ alias :unknown #{met} }
       obj = self.dup rescue self
-      [met, (yield obj rescue nil)]
-    end.select(&:last).map(&:first)
+      yield obj rescue nil
+    end
   end
 end
 
