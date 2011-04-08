@@ -1,21 +1,17 @@
 Description
 ---
 
-This project was inspired by Smalltalk's Method Finder. 
-
-Provided with a receiver, a desired result and possibly some
-arguments, `MethodFinder.find` will list all methods that produce the
-given result when called on the receiver with the provided arguments.
-
-This gem also adds `Object#find_method`, which besides offering an
-alternate interface to pretty much the same functionality, also allows
-you to test for state other than the return value of the method. 
-
-All of this probably sounds more complicated than it really is, just
-look at the examples below.
+This project was originally inspired by Smalltalk's Method Finder, but
+additonal features were added over time.
 
 Usage
 ---
+
+### MethodFinder.find
+
+Provided with a receiver, the desired result and possibly some
+arguments, `MethodFinder.find` will list all methods that produce the
+given result when called on the receiver with the provided arguments.
 
     >> MethodFinder.find(10,1,3)
     => [:%, :<=>, :>>, :[], :modulo, :remainder]
@@ -26,9 +22,12 @@ Usage
     >> MethodFinder.find(['a','b','c'],['A','B','C']) { |x| x.upcase }
     => [:collect, :collect!, :map, :map!]
 
-Thanks to a
-[suggestion](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
-by Ryan Bates, this gem now also provides an alternative interface:
+### Object#find_method
+
+This gem also adds `Object#find_method`, which besides offering an
+alternate interface to pretty much the same functionality as
+`MethodFinder.find`, also allows you to test for state other than
+the return value of the method. 
 
     >> %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
     => [:delete_at, :slice!]
@@ -38,6 +37,30 @@ by Ryan Bates, this gem now also provides an alternative interface:
 Inside `find_method`'s block, the receiver is available as block
 argument and the special method `unknown` is used as a placeholder for
 the desired method.
+
+### MethodFinder.find\_classes\_and_modules
+
+A simple method to return all currently defined modules and classes.
+
+    >> MethodFinder.find_classes_and_modules
+    => [ArgumentError, Array, BasicObject, Bignum ... ZeroDivisionError] 
+
+### MethodFinder.find\_in\_class\_or_module
+
+Searches for a given name within a class. The first parameter can
+either be a class object, a symbol or a string whereas the optional
+second parameter can be a string or a regular expression:
+
+    >> MethodFinder.find_in_class_or_module('Array', 'shuff')
+    => [:shuffle, :shuffle!]
+    >> MethodFinder.find_in_class_or_module(Float, /^to/)
+    => [:to_f, :to_i, :to_int, :to_r, :to_s]
+
+If the second parameter is omitted, all methods of the class or module
+will be returned.
+
+    >> MethodFinder.find_in_class_or_module(Math)
+    => [:acos, :acosh, :asin ... :tanh]
 
 Warning
 ---
@@ -56,14 +79,15 @@ IRB, not with `script/console`).
 Todo
 ---
 
-* a method black list
-* maybe an alternate form of calling this (issue #3)
-
+* a method black list (maybe)
 
 Thanks
 ---
 
-* Matthew Lucas for packaging it as a gem.
+* Matthew Lucas for first packaging this as a gem.
+* Ryan Bates for
+[suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
+what eventually became `Object#find_method`.
 
 License
 ---
