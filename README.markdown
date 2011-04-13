@@ -22,6 +22,18 @@ given result when called on the receiver with the provided arguments.
     >> MethodFinder.find(['a','b','c'],['A','B','C']) { |x| x.upcase }
     => [:collect, :collect!, :map, :map!]
 
+#### Blacklists
+
+You can blacklist methods that MethodFinder should not try by editing
+`MethodFinder::INSTANCE_METHOD_BLACKLIST` and
+`MethodFinder::CLASS_METHOD_BLACKLIST`. Both have the parent class/module
+as symbol key and an array of symbol method names as values.
+
+For example, to forbid the instance method `shutdown` of `Object`,
+you would do
+
+    MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :shutdown
+
 ### Object#find_method
 
 This gem also adds `Object#find_method`, which besides offering an
@@ -75,11 +87,6 @@ I initially wrote this for the students of the core Ruby course on
 [RubyLearning](http://rubylearning.org), so Rails is not of interest
 to me (not saying it doesn't work there, just that I test in plain
 IRB, not with `script/console`).  
-
-Todo
----
-
-* a method black list (maybe)
 
 Thanks
 ---

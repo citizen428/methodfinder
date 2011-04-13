@@ -46,4 +46,9 @@ class TestMethodFinder < MiniTest::Unit::TestCase
 
     assert true, MethodFinder.find_in_class_or_module(Array).size > 10
   end
+
+  def test_ignores_items_in_blacklisdt
+    MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :flatten
+    assert true, !MethodFinder.find( [2,3,4], [2,3,4] ).include?(:flatten)
+  end
 end

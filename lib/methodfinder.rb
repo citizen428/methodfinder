@@ -2,7 +2,7 @@ require 'stringio'
 
 class Object
   def find_method(*args, &block)
-    self.methods.sort.map(&:intern).select do |met|
+    MethodFinder.methods_to_try(self).select do |met|
       self.class.class_eval %{ alias :unknown #{met} }
       obj = self.dup rescue self
       yield obj rescue nil
@@ -14,12 +14,16 @@ class MethodFinder
   ARGS = {
     :cycle => [1] # prevent cycling forever
   }
+  INSTANCE_METHOD_BLACKLIST = {} # e.g. { :Object => [:ri, :vim]  }
+  INSTANCE_METHOD_BLACKLIST.default = []
+  CLASS_METHOD_BLACKLIST = {}
+  CLASS_METHOD_BLACKLIST.default = []
 
   class << self
     def find(obj, res, *args, &block)
       redirect_streams
 
-      obj.methods.sort.map(&:intern).select do |met|
+      methods_to_try(obj).select do |met|
         o = obj.dup rescue obj
         m = o.method(met)
         if m.arity <= args.size
@@ -29,6 +33,18 @@ class MethodFinder
       end
     ensure
       restore_streams
+    end
+
+    def methods_to_try(obj)
+      ret = obj.methods.map(&:to_sym)
+      blacklist = obj.is_a?(Module) ? CLASS_METHOD_BLACKLIST : INSTANCE_METHOD_BLACKLIST
+      klass     = obj.is_a?(Module) ? obj                    : obj.class
+
+      klass.ancestors.each{ |ancestor|
+        ret -= blacklist[ ancestor.to_s.to_sym ]
+      }
+
+      ret.sort
     end
 
     def find_classes_and_modules
