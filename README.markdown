@@ -22,18 +22,6 @@ given result when called on the receiver with the provided arguments.
     >> MethodFinder.find(['a','b','c'],['A','B','C']) { |x| x.upcase }
     => [:collect, :collect!, :map, :map!]
 
-#### Blacklists
-
-You can blacklist methods that MethodFinder should not try by editing
-`MethodFinder::INSTANCE_METHOD_BLACKLIST` and
-`MethodFinder::CLASS_METHOD_BLACKLIST`. Both have the parent class/module
-as symbol key and an array of symbol method names as values.
-
-For example, to forbid the instance method `shutdown` of `Object`,
-you would do
-
-    MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :shutdown
-
 ### Object#find_method
 
 This gem also adds `Object#find_method`, which besides offering an
@@ -49,6 +37,22 @@ the return value of the method.
 Inside `find_method`'s block, the receiver is available as block
 argument and the special method `unknown` is used as a placeholder for
 the desired method.
+
+#### Blacklists
+
+You can exclude methods from being tried by editing the hashes
+`MethodFinder::INSTANCE_METHOD_BLACKLIST` and
+`MethodFinder::CLASS_METHOD_BLACKLIST`. Both use the class/module
+as key and an array of method names as values (note that class, module
+and method names have to be symbols).
+
+For example, to blacklist the instance method `shutdown` of `Object`,
+you would do
+
+    MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :shutdown
+
+This might come in handy when using `MethodFinder` together with other
+gems as such as `interactive_editor`.
 
 ### MethodFinder.find\_classes\_and_modules
 
@@ -95,6 +99,7 @@ Thanks
 * Ryan Bates for
 [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
 what eventually became `Object#find_method`.
+* Jan Lelis for [implementing blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue/4).
 
 License
 ---
