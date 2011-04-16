@@ -95,7 +95,7 @@ IRB, not with `script/console`).
 Thanks
 ---
 
-* Matthew Lucas for first packaging this as a gem.
+* Matthew Lucas for [first packaging this as a gem](https://github.com/citizen428/methodfinder/pull/1).
 * Ryan Bates for
 [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
 what eventually became `Object#find_method`.
