@@ -26,6 +26,17 @@ class TestMethodFinder < MiniTest::Unit::TestCase
     %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
   end
 
+  def test_instance_interface
+    result = 'a'.find_method 'A'
+    assert true, result.include?(:capitalize)
+    assert true, result.include?(:upcase)
+  end
+
+  def test_instance_interface_with_params
+    result = %w[a b c].find_method %w[a b], %w[c]
+    assert true, result.include?(:-)
+  end
+
   def test_find_classes_and_modules
     assert true, MethodFinder.find_classes_and_modules.include?(Array)
     assert true, MethodFinder.find_classes_and_modules.include?(Math)
