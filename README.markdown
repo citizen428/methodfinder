@@ -38,6 +38,12 @@ Inside `find_method`'s block, the receiver is available as block
 argument and the special method `unknown` is used as a placeholder for
 the desired method.
 
+You can also call `find_method` without passing a block. This is the
+same as calling `MethodFinder.find`.
+
+    >> 10.find_method(1,3)
+    [:%, :<=>, :>>, :[], :modulo, :remainder]
+
 #### Blacklists
 
 You can exclude methods from being tried by editing the hashes
