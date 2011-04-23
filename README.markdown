@@ -100,7 +100,7 @@ Thanks
 [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
 what eventually became `Object#find_method`.
 * Jan Lelis for [implementing blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue/4).
-* [Brian Morearty] for pointing out an [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/issues/closed#issue/5).
+* [Brian Morearty] for pointing out an [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/pull/closed#issue/5).
 
 License
 ---
