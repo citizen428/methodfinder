@@ -32,8 +32,14 @@ class TestMethodFinder < MiniTest::Unit::TestCase
   end
 
   def test_find_in_class_or_module
+    if RUBY_VERSION.start_with?("1.9")
+      res = [:shuffle, :shuffle!]
+    else
+      res = %w(shuffle shuffle!)
+    end
+
     [Array, :Array, 'Array'].product(['shuff', /shuff/]).each do |c, pattern|
-      assert_equal [:shuffle, :shuffle!],
+      assert_equal res,
       MethodFinder.find_in_class_or_module(c, pattern)
     end
 

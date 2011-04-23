@@ -27,7 +27,7 @@ given result when called on the receiver with the provided arguments.
 This gem also adds `Object#find_method`, which besides offering an
 alternate interface to pretty much the same functionality as
 `MethodFinder.find`, also allows you to test for state other than
-the return value of the method. 
+the return value of the method.
 
     >> %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
     => [:delete_at, :slice!]
@@ -59,7 +59,7 @@ gems as such as `interactive_editor`.
 A simple method to return all currently defined modules and classes.
 
     >> MethodFinder.find_classes_and_modules
-    => [ArgumentError, Array, BasicObject, Bignum ... ZeroDivisionError] 
+    => [ArgumentError, Array, BasicObject, Bignum ... ZeroDivisionError]
 
 ### MethodFinder.find\_in\_class\_or_module
 
@@ -85,12 +85,12 @@ Common sense not included!
 
 While I never had any problems with this, it's still better to be
 safe than sorry, so use this with caution and maybe not on production
-data. 
+data.
 
 I initially wrote this for the students of the core Ruby course on
 [RubyLearning](http://rubylearning.org), so Rails is not of interest
 to me (not saying it doesn't work there, just that I test in plain
-IRB, not with `script/console`).  
+IRB, not with `script/console`).
 
 Thanks
 ---
@@ -100,6 +100,7 @@ Thanks
 [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
 what eventually became `Object#find_method`.
 * Jan Lelis for [implementing blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue/4).
+* [Brian Morearty] for pointing out an [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/issues/closed#issue/5).
 
 License
 ---

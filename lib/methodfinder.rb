@@ -43,7 +43,7 @@ class Object
 
         klass.ancestors.each { |ancestor| ret -= blacklist[ancestor.to_s.intern] }
 
-        ret.sort
+        ret.sort_by(&:to_s)
       end
 
       def find_classes_and_modules
