@@ -2,14 +2,14 @@ require 'stringio'
 
 class Object
   def find_method(*args, &block)
-    if block
+    if block_given?
       MethodFinder.methods_to_try(self).select do |met|
         self.class.class_eval %{ alias :unknown #{met} }
         obj = self.dup rescue self
         yield obj rescue nil
       end
     else
-      MethodFinder.find self, *args
+      MethodFinder.find(self, *args)
     end
   end
 end
@@ -48,6 +48,7 @@ class MethodFinder
 
       klass.ancestors.each { |ancestor| ret -= blacklist[ancestor.to_s.intern] }
 
+      # 1.8.7 lacks Symbol#<=>
       ret.sort_by(&:to_s)
     end
 

@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'methodfinder'
 
 class TestMethodFinder < MiniTest::Unit::TestCase
-
   def test_finding_method_with_no_argument_or_block
     result = MethodFinder.find('a', 'A')
     assert result.include?(:capitalize)
@@ -43,28 +42,30 @@ class TestMethodFinder < MiniTest::Unit::TestCase
   end
 
   def test_find_in_class_or_module
+    # For some methods Ruby 1.9.2 will return
+    # symbols, whereas 1.8.7 returns strings.
+    res_keys = [:shuffle, :sin, :to_f, :flatten]
     if RUBY_VERSION.start_with?("1.9")
-      res = [:shuffle, :shuffle!]
+      @res = Hash[res_keys.zip(res_keys)]
     else
-      res = %w(shuffle shuffle!)
+      @res = Hash[res_keys.zip(res_keys.map(&:to_s))]
     end
 
     [Array, :Array, 'Array'].product(['shuff', /shuff/]).each do |c, pattern|
-      assert_equal res,
-      MethodFinder.find_in_class_or_module(c, pattern)
+      assert MethodFinder.find_in_class_or_module(c, pattern).include?(@res[:shuffle])
     end
 
-    assert MethodFinder.find_in_class_or_module(Math, /sin/).include?(:sin)
+    assert MethodFinder.find_in_class_or_module(Math, /sin/).include?(@res[:sin])
 
     result = MethodFinder.find_in_class_or_module(:Float, /^to/)
-    assert result.include?(:to_f)
-    assert result.include?(:to_r)
+    assert result.include?(@res[:to_f])
 
     assert MethodFinder.find_in_class_or_module(Array).size > 10
   end
 
   def test_ignores_items_in_blacklist
+    assert MethodFinder.find([[2,3,4]], [2,3,4]).include?(:flatten)
     MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :flatten
-    assert !MethodFinder.find([2,3,4], [2,3,4]).include?(:flatten)
+    assert !MethodFinder.find([[2,3,4]], [2,3,4]).include?(:flatten)
   end
 end
