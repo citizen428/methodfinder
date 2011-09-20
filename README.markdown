@@ -1,3 +1,7 @@
+[![Build Status](https://secure.travis-ci.org/citizen428/methodfinder.png)](http://travis-ci.org/citizen428/methodfinder)
+
+(tested with MRI 1.8.7 and newer)
+
 Description
 ---
 
