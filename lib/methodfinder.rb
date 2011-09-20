@@ -22,7 +22,9 @@ class MethodFinder
   # Blacklisting methods, e.g. { :Object => [:ri, :vim] }
   INSTANCE_METHOD_BLACKLIST = Hash.new { |h, k| h[k] = [] }
   CLASS_METHOD_BLACKLIST = Hash.new { |h, k| h[k] = [] }
+
   INSTANCE_METHOD_BLACKLIST[:Object] << :find_method # prevent stack overflow
+  INSTANCE_METHOD_BLACKLIST[:Object] << :gem # funny testing stuff w/ Bundler
 
   class << self
     def find(obj, res, *args, &block)
