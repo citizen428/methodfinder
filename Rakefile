@@ -33,3 +33,5 @@ namespace :gem do
     gemspec.validate
   end
 end
+
+task :default => [:test]
