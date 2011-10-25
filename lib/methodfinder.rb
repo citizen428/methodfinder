@@ -26,6 +26,11 @@ class MethodFinder
   INSTANCE_METHOD_BLACKLIST[:Object] << :find_method # prevent stack overflow
   INSTANCE_METHOD_BLACKLIST[:Object] << :gem # funny testing stuff w/ Bundler
 
+  if defined? Pry
+    INSTANCE_METHOD_BLACKLIST[:Object] << :pry
+    CLASS_METHOD_BLACKLIST[:Object] << :pry
+  end
+
   class << self
     def find(obj, res, *args, &block)
       redirect_streams
