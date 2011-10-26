@@ -113,7 +113,7 @@ what eventually became `Object#find_method`.
 * Brian Morearty for pointing out an
   [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/pull/5)
   and adding the [blockless version](https://github.com/citizen428/methodfinder/pull/6) of `Object#find_method`.
-
+* Stefan Kanev for [adding Pry support](https://github.com/citizen428/methodfinder/pull/7).
 License
 ---
 
