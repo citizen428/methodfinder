@@ -44,15 +44,15 @@ class TestMethodFinder < MiniTest::Unit::TestCase
   def test_find_in_class_or_module
     # For some methods Ruby 1.9.2 will return
     # symbols, whereas 1.8.7 returns strings.
-    res_keys = [:[], :sin, :to_f, :flatten]
+    res_keys = [:pop, :sin, :to_f, :flatten]
     if RUBY_VERSION.start_with?("1.9")
       @res = Hash[res_keys.zip(res_keys)]
     else
       @res = Hash[res_keys.zip(res_keys.map(&:to_s))]
     end
 
-    [Array, :Array, 'Array'].product(['shuff', /shuff/]).each do |c, pattern|
-      assert MethodFinder.find_in_class_or_module(c, pattern).include?(@res[:[]])
+    [Array, :Array, 'Array'].product(['pop', /pop/]).each do |c, pattern|
+      assert MethodFinder.find_in_class_or_module(c, pattern).include?(@res[:pop])
     end
 
     assert MethodFinder.find_in_class_or_module(Math, /sin/).include?(@res[:sin])
