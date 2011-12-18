@@ -3,11 +3,12 @@ require 'stringio'
 class Object
   def find_method(*args, &block)
     if block_given?
-      MethodFinder.methods_to_try(self).select do |met|
+      mets = MethodFinder.methods_to_try(self).select do |met|
         self.class.class_eval %{ alias :unknown #{met} }
         obj = self.dup rescue self
         yield obj rescue nil
       end
+      mets.map { |m| [self.method(m).owner, m].join("#") }
     else
       MethodFinder.find(self, *args)
     end
@@ -35,7 +36,7 @@ class MethodFinder
     def find(obj, res, *args, &block)
       redirect_streams
 
-      methods_to_try(obj).select do |met|
+      mets = methods_to_try(obj).select do |met|
         o = obj.dup rescue obj
         m = o.method(met)
         if m.arity <= args.size
@@ -43,6 +44,7 @@ class MethodFinder
           m.call(*a, &block) == res rescue nil
         end
       end
+      mets.map { |m| [obj.method(m).owner, m].join("#") }
     ensure
       restore_streams
     end

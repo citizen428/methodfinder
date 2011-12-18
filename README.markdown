@@ -18,13 +18,13 @@ arguments, `MethodFinder.find` will list all methods that produce the
 given result when called on the receiver with the provided arguments.
 
     >> MethodFinder.find(10,1,3)
-    => [:%, :<=>, :>>, :[], :modulo, :remainder]
+    => ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
     >> MethodFinder.find("abc","ABC")
-    => [:swapcase, :swapcase!, :upcase, :upcase!]
+    => ["String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
     >> MethodFinder.find(10,100,2)
-    => [:**]
+    => ["Fixnum#**"]
     >> MethodFinder.find(['a','b','c'],['A','B','C']) { |x| x.upcase }
-    => [:collect, :collect!, :map, :map!]
+    => ["Array#collect", "Array#collect!", "Enumerable#collect_concat", "Enumerable#flat_map", "Array#map", "Array#map!"]
 
 ### Object#find_method
 
@@ -34,9 +34,9 @@ alternate interface to pretty much the same functionality as
 the return value of the method.
 
     >> %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
-    => [:delete_at, :slice!]
+    => ["Array#delete_at", "Array#slice!"]
     >> 10.find_method { |n| n.unknown(3) == 1 }
-    => [:%, :<=>, :>>, :[], :gcd, :modulo, :remainder]
+    => ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
 
 Inside `find_method`'s block, the receiver is available as block
 argument and the special method `unknown` is used as a placeholder for
@@ -46,7 +46,7 @@ You can also call `find_method` without passing a block. This is the
 same as calling `MethodFinder.find`.
 
     >> 10.find_method(1,3)
-    [:%, :<=>, :>>, :[], :modulo, :remainder]
+    => ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
 
 #### Blacklists
 
