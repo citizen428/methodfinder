@@ -33,7 +33,7 @@ class TestMethodFinder < MiniTest::Unit::TestCase
 
   def test_instance_interface_with_params
     # blacklisting method for Rubinius
-    if Object.const_defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx'
+    if Object.const_defined?(:RUBY_ENGINE) && RUBY_ENGINE == 'rbx'
       MethodFinder::INSTANCE_METHOD_BLACKLIST[:Array] << :new_reserved
     end
 
