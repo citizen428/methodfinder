@@ -1,6 +1,6 @@
 [![Build Status](https://secure.travis-ci.org/citizen428/methodfinder.png)](http://travis-ci.org/citizen428/methodfinder)
 
-(tested with MRI 1.8.7 and newer)
+(tested with MRI 1.8.7, 1.9.2 and 1.9.3, as well as Rubinius and JRuby in 1.9 mode)
 
 Description
 ---
