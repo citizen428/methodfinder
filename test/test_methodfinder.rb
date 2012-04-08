@@ -32,6 +32,8 @@ class TestMethodFinder < MiniTest::Unit::TestCase
   end
 
   def test_instance_interface_with_params
+    # blacklisting method for Rubinius
+    MethodFinder::INSTANCE_METHOD_BLACKLIST[:Array] << :new_reserved
     result = %w[a b c].find_method %w[a b], %w[c]
     assert result.include?("Array#-")
   end
