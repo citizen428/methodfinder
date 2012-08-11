@@ -4,7 +4,7 @@ Gem::Specification.new do |gem|
   gem.author = 'Michael Kohl'
   gem.email = 'citizen428@gmail.com'
   gem.summary = 'A Smalltalk-like Method Finder for Ruby'
-  gem.homepage = 'https://github.com/citizen428/MethodFinder'
+  gem.homepage = 'http://citizen428.github.com/methodfinder/'
   gem.require_paths = %w[lib]
   gem.files = %w[lib/methodfinder.rb ./LICENSE ./README.markdown]
   gem.has_rdoc = false
