@@ -5,8 +5,7 @@
 Description
 ---
 
-This project was originally inspired by Smalltalk's Method Finder, but
-additonal features were added over time.
+This project was originally inspired by Smalltalk's Method Finder, but additonal features were added over time.
 
 Usage
 ---
