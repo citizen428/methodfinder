@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'methodfinder'
-  gem.version = '1.2.5'
+  gem.version = '2.0.0'
   gem.author = 'Michael Kohl'
   gem.email = 'citizen428@gmail.com'
   gem.summary = 'A Smalltalk-like Method Finder for Ruby'
@@ -8,4 +8,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = %w[lib]
   gem.files = %w[lib/methodfinder.rb ./LICENSE ./README.markdown]
   gem.has_rdoc = false
+  gem.license = 'MIT'
 end
