@@ -1,11 +1,14 @@
 [![Build Status](https://secure.travis-ci.org/citizen428/methodfinder.png)](http://travis-ci.org/citizen428/methodfinder)
 
-(tested with MRI 1.8.7, 1.9.2 and 1.9.3, as well as Rubinius)
-
-Description
----
+MethodFinder
+===
 
 This project was originally inspired by Smalltalk's Method Finder, but additonal features were added over time.
+
+Requirements
+---
+
+Ruby 1.9.2+ (also works with Rubinius in 1.9 mode). Versions of `MethodFinder` up to 1.2.5 will also work with Ruby 1.8.7.
 
 Usage
 ---
@@ -16,13 +19,13 @@ Provided with a receiver, the desired result and possibly some
 arguments, `MethodFinder.find` will list all methods that produce the
 given result when called on the receiver with the provided arguments.
 
-    >> MethodFinder.find(10,1,3)
+    >> MethodFinder.find(10, 1, 3)
     => ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
     >> MethodFinder.find("abc","ABC")
     => ["String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
-    >> MethodFinder.find(10,100,2)
+    >> MethodFinder.find(10, 100, 2)
     => ["Fixnum#**"]
-    >> MethodFinder.find(['a','b','c'],['A','B','C']) { |x| x.upcase }
+    >> MethodFinder.find(['a','b','c'], ['A','B','C']) { |x| x.upcase }
     => ["Array#collect", "Array#collect!", "Enumerable#collect_concat", "Enumerable#flat_map", "Array#map", "Array#map!"]
 
 ### Object#find_method
@@ -99,7 +102,7 @@ data.
 I initially wrote this for the students of the core Ruby course on
 [RubyLearning](http://rubylearning.org), so Rails is not of interest
 to me (not saying it doesn't work there, just that I test in plain
-IRB, not with `script/console`).
+IRB/Pry and not with the Rails console.
 
 Thanks
 ---
