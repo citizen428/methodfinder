@@ -2,13 +2,13 @@ require 'stringio'
 
 class Object
   def find_method(*args, &block)
-    if block_given?
+    if block
       mets = MethodFinder.methods_to_try(self).select do |met|
-        self.class.class_eval %{ alias :unknown #{met} }
-        obj = self.dup rescue self
-        yield obj rescue nil
+        self.class.class_eval("alias :unknown #{met}")
+        obj = self.dup rescue self # dup doesn't work for immutable types
+        block.call(obj) rescue nil
       end
-      mets.map { |m| [self.method(m).owner, m].join("#") }
+      mets.map { |m| "#{self.method(m).owner}##{m}" }
     else
       MethodFinder.find(self, *args)
     end
@@ -27,7 +27,7 @@ class MethodFinder
   INSTANCE_METHOD_BLACKLIST[:Object] << :find_method # prevent stack overflow
   INSTANCE_METHOD_BLACKLIST[:Object] << :gem # funny testing stuff w/ Bundler
 
-  if defined? Pry
+  if defined?(Pry)
     INSTANCE_METHOD_BLACKLIST[:Object] << :pry
     CLASS_METHOD_BLACKLIST[:Object] << :pry
   end
@@ -44,21 +44,20 @@ class MethodFinder
           m.call(*a, &block) == res rescue nil
         end
       end
-      mets.map { |m| [obj.method(m).owner, m].join("#") }
+      mets.map { |m| "#{obj.method(m).owner}##{m}" }
     ensure
       restore_streams
     end
 
     # Added by Jan Lelis
     def methods_to_try(obj)
-      ret = obj.methods.map(&:intern)
+      ret = obj.methods
       blacklist = obj.is_a?(Module) ? CLASS_METHOD_BLACKLIST : INSTANCE_METHOD_BLACKLIST
       klass = obj.is_a?(Module) ? obj : obj.class
 
       klass.ancestors.each { |ancestor| ret -= blacklist[ancestor.to_s.intern] }
 
-      # 1.8.7 lacks Symbol#<=>
-      ret.sort_by(&:to_s)
+      ret.sort
     end
 
     def find_classes_and_modules
@@ -88,4 +87,3 @@ class MethodFinder
   end
   private_class_method :redirect_streams, :restore_streams
 end
-

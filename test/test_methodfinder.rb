@@ -9,7 +9,7 @@ class TestMethodFinder < MiniTest::Unit::TestCase
   end
 
   def test_finding_method_with_an_argument_and_no_block
-    result = MethodFinder.find(10,1,3)
+    result = MethodFinder.find(10, 1, 3)
     assert result.include?("Fixnum#%")
     assert result.include?("Fixnum#modulo")
   end
@@ -22,11 +22,11 @@ class TestMethodFinder < MiniTest::Unit::TestCase
 
   def test_block_interface
     assert_equal ["Array#delete_at", "Array#slice!"],
-    %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
+      %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
   end
 
   def test_instance_interface
-    result = 'a'.find_method 'A'
+    result = 'a'.find_method('A')
     assert result.include?("String#capitalize")
     assert result.include?("String#upcase")
   end
@@ -37,7 +37,7 @@ class TestMethodFinder < MiniTest::Unit::TestCase
       MethodFinder::INSTANCE_METHOD_BLACKLIST[:Array] << :new_reserved
     end
 
-    result = %w[a b c].find_method %w[a b], %w[c]
+    result = %w[a b c].find_method(%w[a b], %w[c])
     assert result.include?("Array#-")
   end
 
@@ -47,23 +47,14 @@ class TestMethodFinder < MiniTest::Unit::TestCase
   end
 
   def test_find_in_class_or_module
-    # For some methods Ruby 1.9.2 will return
-    # symbols, whereas 1.8.7 returns strings.
-    res_keys = [:pop, :sin, :to_f, :flatten]
-    if RUBY_VERSION.start_with?("1.9")
-      @res = Hash[res_keys.zip(res_keys)]
-    else
-      @res = Hash[res_keys.zip(res_keys.map(&:to_s))]
-    end
-
     [Array, :Array, 'Array'].product(['pop', /pop/]).each do |c, pattern|
-      assert MethodFinder.find_in_class_or_module(c, pattern).include?(@res[:pop])
+      assert MethodFinder.find_in_class_or_module(c, pattern).include?(:pop)
     end
 
-    assert MethodFinder.find_in_class_or_module(Math, /sin/).include?(@res[:sin])
+    assert MethodFinder.find_in_class_or_module(Math, /sin/).include?(:sin)
 
     result = MethodFinder.find_in_class_or_module(:Float, /^to/)
-    assert result.include?(@res[:to_f])
+    assert result.include?(:to_f)
 
     assert MethodFinder.find_in_class_or_module(Array).size > 10
   end
