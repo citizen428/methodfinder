@@ -7,6 +7,5 @@ Gem::Specification.new do |gem|
   gem.homepage = 'http://citizen428.github.com/methodfinder/'
   gem.require_paths = %w[lib]
   gem.files = %w[lib/methodfinder.rb ./LICENSE ./README.markdown]
-  gem.has_rdoc = false
   gem.license = 'MIT'
 end

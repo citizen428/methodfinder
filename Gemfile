@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem "rake"
-gem "minitest", "~> 2.6.0", :group => :test
+gem "minitest", :group => :test
