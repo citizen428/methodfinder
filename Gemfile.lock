@@ -1,5 +1,5 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     minitest (2.6.0)
     rake (0.9.2)
@@ -9,5 +9,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  minitest (~> 2.6.0)
+  minitest
   rake
