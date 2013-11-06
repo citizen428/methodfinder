@@ -37,7 +37,7 @@ end
 module MethodFinder
   # Default arguments for methods
   ARGS = {
-    :cycle => [1] # prevent cycling forever
+    cycle: [1] # prevent cycling forever
   }
 
   # Blacklisting methods, e.g. { :Object => [:ri, :vim] }
@@ -59,13 +59,13 @@ module MethodFinder
     # provided arguments.
     #
     #    MethodFinder.find(10, 1, 3)
-    #    => ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
+    #    #=> ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
     #    MethodFinder.find("abc","ABC")
-    #    => ["String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
+    #    #=> ["String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
     #    MethodFinder.find(10, 100, 2)
-    #    => ["Fixnum#**"]
+    #    #=> ["Fixnum#**"]
     #    MethodFinder.find(['a','b','c'], ['A','B','C']) { |x| x.upcase }
-    #    => ["Array#collect", "Array#collect!", "Enumerable#collect_concat", "Enumerable#flat_map", "Array#map", "Array#map!"]
+    #    #=> ["Array#collect", "Array#collect!", "Enumerable#collect_concat", "Enumerable#flat_map", "Array#map", "Array#map!"]
 
     def find(obj, res, *args, &block)
       redirect_streams
