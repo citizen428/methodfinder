@@ -1,6 +1,25 @@
 require 'stringio'
 
 class Object
+  # An alternative interface to the functionality of
+  # <tt>MethodFinder.find</tt>. Also allows to test for state other
+  # than the return value of the method.
+  #
+  #    %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
+  #    #=> ["Array#delete_at", "Array#slice!"]
+  #    10.find_method { |n| n.unknown(3) == 1 }
+  #    #=> ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
+  #
+  # Inside <tt>find_method</tt>'s block, the receiver is available as
+  # block argument and the special method <tt>unknown</tt> is used as
+  # a placeholder for the desired method.
+  #
+  # <tt>find_method</tt> can be called without passing a block. This
+  # is the same as calling <tt>MethodFinder.find</tt>.
+  #
+  #    10.find_method(1,3)
+  #    #=> ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
+
   def find_method(*args, &block)
     if block
       mets = MethodFinder.methods_to_try(self).select do |met|
@@ -15,7 +34,7 @@ class Object
   end
 end
 
-class MethodFinder
+module MethodFinder
   ARGS = {
     :cycle => [1] # prevent cycling forever
   }
@@ -33,6 +52,20 @@ class MethodFinder
   end
 
   class << self
+    # Provided with a receiver, the desired result and possibly some
+    # arguments, <tt>MethodFinder.find</tt> will list all methods that
+    # produce the given result when called on the receiver with the
+    # provided arguments.
+    #
+    #    MethodFinder.find(10, 1, 3)
+    #    => ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
+    #    MethodFinder.find("abc","ABC")
+    #    => ["String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
+    #    MethodFinder.find(10, 100, 2)
+    #    => ["Fixnum#**"]
+    #    MethodFinder.find(['a','b','c'], ['A','B','C']) { |x| x.upcase }
+    #    => ["Array#collect", "Array#collect!", "Enumerable#collect_concat", "Enumerable#flat_map", "Array#map", "Array#map!"]
+
     def find(obj, res, *args, &block)
       redirect_streams
 
@@ -60,10 +93,27 @@ class MethodFinder
       ret.sort
     end
 
+    # Returns all currently defined modules and classes.
     def find_classes_and_modules
       constants = Object.constants.sort.map { |c| Object.const_get(c) }
       constants.select { |c| c.class == Class || c.class == Module}
     end
+
+    # Searches for a given name within a class. The first parameter
+    # can either be a class object, a symbol or a string whereas the
+    # optional second parameter can be a string or a regular
+    # expression:
+    #
+    #    MethodFinder.find_in_class_or_module('Array', 'shuff')
+    #    #=> [:shuffle, :shuffle!]
+    #    MethodFinder.find_in_class_or_module(Float, /^to/)
+    #    #=> [:to_f, :to_i, :to_int, :to_r, :to_s]
+    #
+    # If the second parameter is omitted, all methods of the class or
+    # module will be returned.
+    #
+    #    MethodFinder.find_in_class_or_module(Math)
+    #    #=> [:acos, :acosh, :asin ... :tanh]
 
     def find_in_class_or_module(c, pattern=/./)
       cs = Object.const_get(c.to_s)
