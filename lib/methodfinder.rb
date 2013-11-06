@@ -35,6 +35,7 @@ class Object
 end
 
 module MethodFinder
+  # Default arguments for methods
   ARGS = {
     :cycle => [1] # prevent cycling forever
   }
@@ -82,17 +83,6 @@ module MethodFinder
       restore_streams
     end
 
-    # Added by Jan Lelis
-    def methods_to_try(obj)
-      ret = obj.methods
-      blacklist = obj.is_a?(Module) ? CLASS_METHOD_BLACKLIST : INSTANCE_METHOD_BLACKLIST
-      klass = obj.is_a?(Module) ? obj : obj.class
-
-      klass.ancestors.each { |ancestor| ret -= blacklist[ancestor.to_s.intern] }
-
-      ret.sort
-    end
-
     # Returns all currently defined modules and classes.
     def find_classes_and_modules
       constants = Object.constants.sort.map { |c| Object.const_get(c) }
@@ -123,6 +113,18 @@ module MethodFinder
       all_methods.grep(/#{pattern}/).sort
     end
 
+    # Returns a list of candidate methods for a given object. Added by Jan Lelis.
+    def methods_to_try(obj)
+      ret = obj.methods
+      blacklist = obj.is_a?(Module) ? CLASS_METHOD_BLACKLIST : INSTANCE_METHOD_BLACKLIST
+      klass = obj.is_a?(Module) ? obj : obj.class
+
+      klass.ancestors.each { |ancestor| ret -= blacklist[ancestor.to_s.intern] }
+
+      ret.sort
+    end
+
+    # :nodoc:
     def redirect_streams
       @orig_stdout = $stdout
       @orig_stderr = $stderr
