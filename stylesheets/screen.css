@@ -195,7 +195,8 @@ header h2 {
   text-align: center;
 }
 
-section#downloads {
+section#downloads,
+div#no-downloads {
   position: relative;
   display: block;
   height: 197px;
@@ -204,6 +205,14 @@ section#downloads {
   margin: -80px auto -150px;
   z-index: 1;
   background: transparent url(../images/bg-ramp.jpg) center 171px no-repeat;
+}
+
+div#no-downloads span.inner {
+  display: block;
+  position: relative;
+  height: 197px;
+  width: 550px;
+  background: transparent url(../images/download-sprite.png) 0 0 no-repeat;
 }
 
 section#downloads a {
@@ -443,6 +452,10 @@ pre {
   border-bottom: 2px solid #bdb6ad;
   font: normal normal .9em/1.7 "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;
   overflow: auto;
+}
+
+pre code {
+  padding: 0;
 }
 
 table {
