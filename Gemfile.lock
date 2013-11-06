@@ -3,6 +3,7 @@ GEM
   specs:
     minitest (2.6.0)
     rake (0.9.2)
+    rdoc (4.0.0)
 
 PLATFORMS
   java
@@ -11,3 +12,4 @@ PLATFORMS
 DEPENDENCIES
   minitest
   rake
+  rdoc
