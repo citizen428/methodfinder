@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'methodfinder'
 
-class TestMethodFinder < MiniTest::Unit::TestCase
+class TestMethodFinder < Minitest::Test
   def test_finding_method_with_no_argument_or_block
     result = MethodFinder.find('a', 'A')
     assert result.include?("String#capitalize")
@@ -9,9 +9,9 @@ class TestMethodFinder < MiniTest::Unit::TestCase
   end
 
   def test_finding_method_with_an_argument_and_no_block
-    result = MethodFinder.find(10, 1, 3)
-    assert result.include?("Fixnum#%")
-    assert result.include?("Fixnum#modulo")
+    result = MethodFinder.find('twothreefour', 'three', 3, 5)
+    assert result.include?("String#slice")
+    assert result.include?("String#slice!")
   end
 
   def test_finding_method_with_a_block

@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rake'
-gem 'minitest',  group: :test
-gem 'rdoc', platform: :rbx
+group :test do
+  gem 'minitest'
+end
+
+group :test, :development do
+  gem 'rake'
+end
+
+group :development do
+  gem 'rdoc', platform: :rbx
+end
