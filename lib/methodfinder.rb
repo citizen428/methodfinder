@@ -22,7 +22,9 @@ class Object
 
   def find_method(*args, &block)
     if block
+      debug = ENV['METHOD_FINDER_DEBUG']
       mets = MethodFinder.methods_to_try(self).select do |met|
+        STDERR.puts met if debug
         self.class.class_eval("alias :unknown #{met}")
         obj = self.dup rescue self # dup doesn't work for immutable types
         block.call(obj) rescue nil
@@ -70,10 +72,12 @@ module MethodFinder
     def find(obj, res, *args, &block)
       redirect_streams
 
+      debug = ENV['METHOD_FINDER_DEBUG']
       mets = methods_to_try(obj).select do |met|
         o = obj.dup rescue obj
         m = o.method(met)
         if m.arity <= args.size
+          STDERR.puts met if debug
           a = args.empty? && ARGS.has_key?(met) ? ARGS[met] : args
           m.call(*a, &block) == res rescue nil
         end
