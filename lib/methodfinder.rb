@@ -20,9 +20,8 @@ class Object
   #    10.find_method(1,3)
   #    #=> ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
 
-  def find_method(*args, &block)
+  def find_method(*args, debug: ENV['METHOD_FINDER_DEBUG'], &block)
     if block
-      debug = ENV['METHOD_FINDER_DEBUG']
       mets = MethodFinder.methods_to_try(self).select do |met|
         STDERR.puts met if debug
         self.class.class_eval("alias :unknown #{met}")
@@ -54,7 +53,6 @@ module MethodFinder
     CLASS_METHOD_BLACKLIST[:Object] << :pry
   end
 
-  class << self
     # Provided with a receiver, the desired result and possibly some
     # arguments, <tt>MethodFinder.find</tt> will list all methods that
     # produce the given result when called on the receiver with the
@@ -69,10 +67,9 @@ module MethodFinder
     #    MethodFinder.find(['a','b','c'], ['A','B','C']) { |x| x.upcase }
     #    #=> ["Array#collect", "Array#collect!", "Enumerable#collect_concat", "Enumerable#flat_map", "Array#map", "Array#map!"]
 
-    def find(obj, res, *args, &block)
+    def self.find(obj, res, *args, debug: ENV['METHOD_FINDER_DEBUG'], &block)
       redirect_streams
 
-      debug = ENV['METHOD_FINDER_DEBUG']
       mets = methods_to_try(obj).select do |met|
         o = obj.dup rescue obj
         m = o.method(met)
@@ -88,7 +85,7 @@ module MethodFinder
     end
 
     # Returns all currently defined modules and classes.
-    def find_classes_and_modules
+    def self.find_classes_and_modules
       constants = Object.constants.sort.map { |c| Object.const_get(c) }
       constants.select { |c| c.class == Class || c.class == Module}
     end
@@ -109,7 +106,7 @@ module MethodFinder
     #    MethodFinder.find_in_class_or_module(Math)
     #    #=> [:acos, :acosh, :asin ... :tanh]
 
-    def find_in_class_or_module(c, pattern=/./)
+    def self.find_in_class_or_module(c, pattern=/./)
       cs = Object.const_get(c.to_s)
       class_methods = cs.methods(false) rescue []
       instance_methods = cs.instance_methods(false)
@@ -118,7 +115,7 @@ module MethodFinder
     end
 
     # Returns a list of candidate methods for a given object. Added by Jan Lelis.
-    def methods_to_try(obj)
+    def self.methods_to_try(obj)
       ret = obj.methods
       blacklist = obj.is_a?(Module) ? CLASS_METHOD_BLACKLIST : INSTANCE_METHOD_BLACKLIST
       klass = obj.is_a?(Module) ? obj : obj.class
@@ -129,17 +126,16 @@ module MethodFinder
     end
 
     # :nodoc:
-    def redirect_streams
+    def self.redirect_streams
       @orig_stdout = $stdout
       @orig_stderr = $stderr
       $stdout = StringIO.new
       $stderr = StringIO.new
     end
 
-    def restore_streams
+    def self.restore_streams
       $stdout = @orig_stdout
       $stderr = @orig_stderr
     end
-  end
   private_class_method :redirect_streams, :restore_streams
 end

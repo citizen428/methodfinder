@@ -70,7 +70,7 @@ If the second parameter is omitted, all methods of the class or module will be r
 
 == Troubleshooting
 
-If the +$METHOD_FINDER_DEBUG+ environment variable is set, the name of each candidate method is printed to stderr before it is invoked. This can be useful to identify (and blacklist) misbehaving methods.
+If the +METHOD_FINDER_DEBUG+ environment variable is set, the name of each candidate method is printed to stderr before it is invoked. This can be useful to identify (and blacklist) misbehaving methods.
 
 It can be set on the command line e.g.:
 
@@ -79,6 +79,21 @@ It can be set on the command line e.g.:
 Or inside IRB/Pry:
 
     >> ENV['METHOD_FINDER_DEBUG'] = '1'
+
+Alternatively both <tt>Object#find_method</tt> and <tt>MethodFinder.find</tt> support an optional keyword argument +debug+ to toggle the behavior on a per-call basis (this argument defaults to the value of the environment variable described above):
+
+    >> 'a'.find_method(debug: true) { |n| n.unknown == 'A' }
+    !
+    !=
+    [output shortened]
+    yellowish
+    #=> ["String#capitalize", "String#capitalize!", "String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
+    >> MethodFinder.find('a', 'A', debug: true)
+    !
+    !=
+    [output shortened]
+    yellowish
+    #=> ["String#capitalize", "String#capitalize!", "String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
 
 == Warning
 
@@ -95,10 +110,11 @@ I initially wrote this for the students of the core Ruby course on {RubyLearning
 * Jan Lelis for {implementing blacklists}[https://github.com/citizen428/methodfinder/issues/closed#issue/4].
 * Brian Morearty for pointing out an {incompatibility with Ruby 1.8.7}[https://github.com/citizen428/methodfinder/pull/5] and adding the {blockless version}[https://github.com/citizen428/methodfinder/pull/6] of <tt>Object#find_method</tt>.
 * Stefan Kanev for {adding Pry support}[https://github.com/citizen428/methodfinder/pull/7].
+* chocolateboy for {compatibility fixes and updates}[https://github.com/citizen428/methodfinder/pull/8] as well as {the intitial debug implementation}[https://github.com/citizen428/methodfinder/pull/9].
 
 == License
 
-Copyright (c) 2011 Michael Kohl
+Copyright (c) 2011-2017 Michael Kohl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
