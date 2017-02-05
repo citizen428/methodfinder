@@ -68,6 +68,18 @@ If the second parameter is omitted, all methods of the class or module will be r
     MethodFinder.find_in_class_or_module(Math)
     #=> [:acos, :acosh, :asin ... :tanh]
 
+== Troubleshooting
+
+If the +$METHOD_FINDER_DEBUG+ environment variable is set, the name of each candidate method is printed to stderr before it is invoked. This can be useful to identify (and blacklist) misbehaving methods.
+
+It can be set on the command line e.g.:
+
+    $ METHOD_FINDER_DEBUG=1 irb
+
+Or inside IRB/Pry:
+
+    >> ENV['METHOD_FINDER_DEBUG'] = '1'
+
 == Warning
 
 Common sense not included!
