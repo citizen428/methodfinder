@@ -64,4 +64,13 @@ class TestMethodFinder < Minitest::Test
     MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :flatten
     assert !MethodFinder.find([[2,3,4]], [2,3,4]).include?("Array#flatten")
   end
+
+  def test_keyword_propagation_from_find_method_to_find
+    # if debug is *not* propagated, this dies with the following
+    # error: "ArgumentError: unknown keyword: baz".
+    # see https://github.com/citizen428/methodfinder/issues/10
+    result = { foo: 'bar' }.find_method({ foo: 'bar', baz: 'quux' }, { baz: 'quux' }, debug: false)
+    assert result.include?("Hash#merge")
+    assert result.include?("Hash#merge!")
+  end
 end
