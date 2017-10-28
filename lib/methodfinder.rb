@@ -30,7 +30,7 @@ class Object
       end
       mets.map { |m| "#{self.method(m).owner}##{m}" }
     else
-      MethodFinder.find(self, *args)
+      MethodFinder.find(self, *args, debug: debug)
     end
   end
 end

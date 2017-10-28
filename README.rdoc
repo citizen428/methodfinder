@@ -110,7 +110,7 @@ I initially wrote this for the students of the core Ruby course on {RubyLearning
 * Jan Lelis for {implementing blacklists}[https://github.com/citizen428/methodfinder/issues/closed#issue/4].
 * Brian Morearty for pointing out an {incompatibility with Ruby 1.8.7}[https://github.com/citizen428/methodfinder/pull/5] and adding the {blockless version}[https://github.com/citizen428/methodfinder/pull/6] of <tt>Object#find_method</tt>.
 * Stefan Kanev for {adding Pry support}[https://github.com/citizen428/methodfinder/pull/7].
-* chocolateboy for {compatibility fixes and updates}[https://github.com/citizen428/methodfinder/pull/8] as well as {the intitial debug implementation}[https://github.com/citizen428/methodfinder/pull/9].
+* chocolateboy for {compatibility fixes and updates}[https://github.com/citizen428/methodfinder/pull/8], {the intitial debug implementation}[https://github.com/citizen428/methodfinder/pull/9], {fixes to keyword argument propagation}[https://github.com/citizen428/methodfinder/pull/11].
 
 == License
 
