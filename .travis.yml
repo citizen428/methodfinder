@@ -2,11 +2,9 @@ sudo: false
 language: ruby
 dist: trusty
 rvm:
-  - 2.1.10
-  - 2.2.6
-  - 2.3.3
   - 2.4.0
-  - jruby-9.1.7.0
+  - 2.5.1
+  - jrub
   - rbx
   - ruby-head
 matrix:
