@@ -4,31 +4,31 @@ require 'methodfinder'
 class TestMethodFinder < Minitest::Test
   def test_finding_method_with_no_argument_or_block
     result = MethodFinder.find('a', 'A')
-    assert result.include?("String#capitalize")
-    assert result.include?("String#upcase")
+    assert result.include?('String#capitalize')
+    assert result.include?('String#upcase')
   end
 
   def test_finding_method_with_an_argument_and_no_block
     result = MethodFinder.find('twothreefour', 'three', 3, 5)
-    assert result.include?("String#slice")
-    assert result.include?("String#slice!")
+    assert result.include?('String#slice')
+    assert result.include?('String#slice!')
   end
 
   def test_finding_method_with_a_block
-    result = MethodFinder.find(%w(a b), %w(A B)) { |x| x.upcase }
-    assert result.include?("Array#map")
-    assert result.include?("Array#collect")
+    result = MethodFinder.find(%w[a b], %w[A B], &:upcase)
+    assert result.include?('Array#map')
+    assert result.include?('Array#collect')
   end
 
   def test_block_interface
-    assert_equal ["Array#delete_at", "Array#slice!"],
-      %w[a b c].find_method { |a| a.unknown(1) ; a == %w[a c] }
+    assert_equal ['Array#delete_at', 'Array#slice!'],
+                 %w[a b c].find_method { |a| a.unknown(1); a == %w[a c] }
   end
 
   def test_instance_interface
     result = 'a'.find_method('A')
-    assert result.include?("String#capitalize")
-    assert result.include?("String#upcase")
+    assert result.include?('String#capitalize')
+    assert result.include?('String#upcase')
   end
 
   def test_instance_interface_with_params
@@ -38,7 +38,7 @@ class TestMethodFinder < Minitest::Test
     end
 
     result = %w[a b c].find_method(%w[a b], %w[c])
-    assert result.include?("Array#-")
+    assert result.include?('Array#-')
   end
 
   def test_find_classes_and_modules
@@ -60,9 +60,9 @@ class TestMethodFinder < Minitest::Test
   end
 
   def test_ignores_items_in_blacklist
-    assert MethodFinder.find([[2,3,4]], [2,3,4]).include?("Array#flatten")
+    assert MethodFinder.find([[2, 3, 4]], [2, 3, 4]).include?('Array#flatten')
     MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :flatten
-    assert !MethodFinder.find([[2,3,4]], [2,3,4]).include?("Array#flatten")
+    assert !MethodFinder.find([[2, 3, 4]], [2, 3, 4]).include?('Array#flatten')
   end
 
   def test_keyword_propagation_from_find_method_to_find
@@ -70,7 +70,7 @@ class TestMethodFinder < Minitest::Test
     # error: "ArgumentError: unknown keyword: baz".
     # see https://github.com/citizen428/methodfinder/issues/10
     result = { foo: 'bar' }.find_method({ foo: 'bar', baz: 'quux' }, { baz: 'quux' }, debug: false)
-    assert result.include?("Hash#merge")
-    assert result.include?("Hash#merge!")
+    assert result.include?('Hash#merge')
+    assert result.include?('Hash#merge!')
   end
 end
