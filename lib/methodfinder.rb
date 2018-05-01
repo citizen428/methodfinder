@@ -19,16 +19,9 @@ class Object
   #
   #    10.find_method(1, 3)
   #    #=> ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", ...]
-  def find_method(*args, debug: ENV['METHOD_FINDER_DEBUG'])
+  def find_method(*args, debug: ENV['METHOD_FINDER_DEBUG'], &block)
     return MethodFinder.find(self, *args, debug: debug) unless block_given?
-
-    found = MethodFinder.methods_to_try(self).select do |met|
-      STDERR.puts(met) if debug
-      self.class.class_eval("alias :unknown #{met}", __FILE__, __LINE__)
-      obj = self.dup rescue self # dup doesn't work for immutable types
-      yield(obj) rescue nil
-    end
-    found.map { |m| "#{method(m).owner}##{m}" }
+    MethodFinder.find_with_block(self, debug: debug, &block)
   end
 end
 
@@ -64,28 +57,37 @@ module MethodFinder
   #    MethodFinder.find(['a','b','c'], ['A','B','C']) { |x| x.upcase }
   #    #=> ["Array#collect", "Array#collect!", "Enumerable#collect_concat", ...]
   def self.find(obj, res, *args, debug: ENV['METHOD_FINDER_DEBUG'], &block)
-    redirect_streams
-
-    found = methods_to_try(obj).select do |met|
-      o = obj.dup rescue obj
-      m = o.method(met)
-      next unless m.arity <= args.size
-      STDERR.puts(met) if debug
-      a = args.empty? && ARGS.key?(met) ? ARGS[met] : args
-      m.call(*a, &block) == res rescue nil
+    with_redirected_streams do
+      found = methods_to_try(obj).select do |met|
+        o = obj.dup rescue obj
+        m = o.method(met)
+        next unless m.arity <= args.size
+        STDERR.puts(met) if debug
+        a = args.empty? && ARGS.key?(met) ? ARGS[met] : args
+        m.call(*a, &block) == res rescue nil
+      end
+      found.map { |m| "#{obj.method(m).owner}##{m}" }
     end
-    found.map { |m| "#{obj.method(m).owner}##{m}" }
-  ensure
-    restore_streams
+  end
+
+  def self.find_with_block(obj, debug: ENV['METHOD_FINDER_DEBUG'], &block)
+    with_redirected_streams do
+      found = methods_to_try(obj).select do |met|
+        STDERR.puts(met) if debug
+        obj.class.class_eval("alias :unknown #{met}", __FILE__, __LINE__)
+        subject = obj.dup rescue obj # dup doesn't work for immutable types
+        block.call(subject) rescue nil
+      end
+      found.map { |m| "#{obj.method(m).owner}##{m}" }
+    end
   end
 
   # Returns all currently defined modules and classes.
   def self.find_classes_and_modules
-    redirect_streams
-    constants = Object.constants.sort.map { |c| Object.const_get(c) }
-    constants.select { |c| c.class == Class || c.class == Module }
-  ensure
-    restore_streams
+    with_redirected_streams do
+      constants = Object.constants.sort.map { |c| Object.const_get(c) }
+      constants.select { |c| c.class == Class || c.class == Module }
+    end
   end
 
   # Searches for a given name within a class. The first parameter
@@ -122,20 +124,18 @@ module MethodFinder
   end
 
   # :nodoc:
-  def self.redirect_streams
-    @orig_stdout = $stdout
-    @orig_stderr = $stderr
+  def self.with_redirected_streams
+    orig_stdout = $stdout
+    orig_stderr = $stderr
     $stdout = StringIO.new
     $stderr = StringIO.new
-  end
-  private_class_method :redirect_streams
 
-  # :nodoc:
-  def self.restore_streams
-    $stdout = @orig_stdout
-    $stderr = @orig_stderr
+    yield
+  ensure
+    $stdout = orig_stdout
+    $stderr = orig_stderr
   end
-  private_class_method :restore_streams
+  private_class_method :with_redirected_streams
 
   # :nodoc:
   def self.select_blacklist(object)
