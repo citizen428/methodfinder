@@ -1,6 +1,7 @@
 require 'rake/testtask'
 require 'rdoc/task'
 require 'fileutils'
+
 GEMSPEC = 'methodfinder.gemspec'
 
 Rake::TestTask.new do |t|
