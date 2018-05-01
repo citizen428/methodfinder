@@ -21,8 +21,10 @@ class TestMethodFinder < Minitest::Test
   end
 
   def test_block_interface
-    assert_equal ['Array#delete_at', 'Array#slice!'],
-                 %w[a b c].find_method { |a| a.unknown(1); a == %w[a c] }
+    assert_equal(
+      ['Array#delete_at', 'Array#slice!'],
+      %w[a b c].find_method { |a| a.unknown(1); a == %w[a c] }
+    )
   end
 
   def test_instance_interface
@@ -65,12 +67,24 @@ class TestMethodFinder < Minitest::Test
     assert !MethodFinder.find([[2, 3, 4]], [2, 3, 4]).include?('Array#flatten')
   end
 
-  def test_keyword_propagation_from_find_method_to_find
-    # if debug is *not* propagated, this dies with the following
-    # error: "ArgumentError: unknown keyword: baz".
-    # see https://github.com/citizen428/methodfinder/issues/10
-    result = { foo: 'bar' }.find_method({ foo: 'bar', baz: 'quux' }, { baz: 'quux' }, debug: false)
-    assert result.include?('Hash#merge')
-    assert result.include?('Hash#merge!')
+  # def test_keyword_propagation_from_find_method_to_find
+  #   # if debug is *not* propagated, this dies with the following
+  #   # error: "ArgumentError: unknown keyword: baz".
+  #   # see https://github.com/citizen428/methodfinder/issues/10
+  #   result = { foo: 'bar' }.find_method({ foo: 'bar', baz: 'quux' }, { baz: 'quux' }, debug: false)
+  #   assert result.include?('Hash#merge')
+  #   assert result.include?('Hash#merge!')
+  # end
+
+  # See: https://github.com/citizen428/methodfinder/issues/10
+  def test_it_works_with_hashes
+    receiver = { foo: 'bar' }
+    argument = { baz: 'quux' }
+    result   = { foo: 'bar', baz: 'quux' }
+
+    assert_equal(
+      ['Hash#merge', 'Hash#merge!', 'Hash#update'],
+      receiver.find_method(result, argument)
+    )
   end
 end
