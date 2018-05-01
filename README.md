@@ -1,5 +1,8 @@
 # MethodFinder
 
+[![Build Status](https://travis-ci.org/citizen428/methodfinder.svg)](https://travis-ci.org/citizen428/methodfinder)
+[![Gem Version](https://img.shields.io/gem/v/methodfinder.svg)](https://rubygems.org/gems/methodfinder)
+
 This project was originally inspired by Smalltalk's Method Finder, but
 additional features were added over time.
 
