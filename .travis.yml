@@ -1,12 +1,15 @@
 sudo: false
 language: ruby
-dist: trusty
+cache: bundler
 rvm:
-  - 2.4.0
-  - 2.5.1
-  - jrub
-  - rbx
+  - 2.4
+  - 2.5
+  - jruby
+  - rbx-3
   - ruby-head
+before_install:
+  - gem update --system
+  - gem install bundler
 matrix:
   allow_failures:
-      - rvm: rbx
+      - rvm: rbx-3
