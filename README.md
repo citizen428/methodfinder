@@ -3,6 +3,23 @@
 [![Build Status](https://travis-ci.org/citizen428/methodfinder.svg)](https://travis-ci.org/citizen428/methodfinder)
 [![Gem Version](https://img.shields.io/gem/v/methodfinder.svg)](https://rubygems.org/gems/methodfinder)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Requirements](#requirements)
+- [Usage](#usage)
+  - [MethodFinder.find](#methodfinderfind)
+  - [Object#find_method](#objectfind_method)
+    - [Blacklists](#blacklists)
+  - [MethodFinder.find_classes_and_modules](#methodfinderfind_classes_and_modules)
+  - [MethodFinder.find_in_class_or_module](#methodfinderfind_in_class_or_module)
+- [Troubleshooting](#troubleshooting)
+- [Warning](#warning)
+- [Thanks](#thanks)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 This project was originally inspired by Smalltalk's Method Finder, but
 additional features were added over time.
 
