@@ -2,3 +2,4 @@ pkg/
 *.rbc
 .bundle/
 doc/
+/vendor/
