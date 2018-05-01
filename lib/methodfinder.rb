@@ -81,8 +81,11 @@ module MethodFinder
 
   # Returns all currently defined modules and classes.
   def self.find_classes_and_modules
+    redirect_streams
     constants = Object.constants.sort.map { |c| Object.const_get(c) }
     constants.select { |c| c.class == Class || c.class == Module }
+  ensure
+    restore_streams
   end
 
   # Searches for a given name within a class. The first parameter
