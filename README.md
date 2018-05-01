@@ -155,26 +155,17 @@ the Rails console.
 
 ## Thanks
 
-*   Matthew Lucas for [first packaging this as a
-    gem](https://github.com/citizen428/methodfinder/pull/1).
-*   Ryan Bates for
-    [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issu
-    e/3) what eventually became `Object#find_method`.
-*   Jan Lelis for [implementing
-    blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue
-    /4).
-*   Brian Morearty for pointing out an [incompatibility with Ruby
-    1.8.7](https://github.com/citizen428/methodfinder/pull/5) and adding the
-    [blockless version](https://github.com/citizen428/methodfinder/pull/6) of
-    `Object#find_method`.
-*   Stefan Kanev for [adding Pry
-    support](https://github.com/citizen428/methodfinder/pull/7).
-*   chocolateboy for [compatibility fixes and
-    updates](https://github.com/citizen428/methodfinder/pull/8), [the initial
-    debug implementation](https://github.com/citizen428/methodfinder/pull/9),
-    [fixes to keyword argument
-    propagation](https://github.com/citizen428/methodfinder/pull/11).
-
+* Matthew Lucas for [first packaging this as a gem](https://github.com/citizen428/methodfinder/pull/1).
+* Ryan Bates for [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
+  what eventually became `Object#find_method`.
+* Jan Lelis for [implementing blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue/4).
+* Brian Morearty for pointing out an [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/pull/5)
+  and adding the [blockless version](https://github.com/citizen428/methodfinder/pull/6)
+  of `Object#find_method`.
+* Stefan Kanev for [adding Pry support](https://github.com/citizen428/methodfinder/pull/7).
+* chocolateboy for [compatibility fixes and updates](https://github.com/citizen428/methodfinder/pull/8),
+  [the initial debug implementation](https://github.com/citizen428/methodfinder/pull/9),
+  [fixes to keyword argument propagation](https://github.com/citizen428/methodfinder/pull/11).
 
 ## License
 
