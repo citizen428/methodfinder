@@ -27,12 +27,14 @@ end
 
 module MethodFinder
   # Default arguments for methods
+  # :nodoc:
   ARGS = {
     cycle: [1] # prevent cycling forever
   }.freeze
 
   # Blacklisting methods, e.g. { :Object => [:ri, :vim] }
   INSTANCE_METHOD_BLACKLIST = Hash.new { |h, k| h[k] = [] }
+  # Blacklisting class methods
   CLASS_METHOD_BLACKLIST = Hash.new { |h, k| h[k] = [] }
 
   INSTANCE_METHOD_BLACKLIST[:Object] << :find_method # prevent stack overflow
@@ -41,6 +43,19 @@ module MethodFinder
   if defined?(Pry)
     INSTANCE_METHOD_BLACKLIST[:Object] << :pry
     CLASS_METHOD_BLACKLIST[:Object] << :pry
+  end
+
+  @debug = false
+
+  # Checkes wheter or not debugging is currently enabled
+  # :doc:
+  def self.debug?
+    !!(@debug || ENV['METHOD_FINDER_DEBUG'])
+  end
+
+  # Toggles the debug mode
+  def self.toggle_debug!
+    @debug = !@debug
   end
 
   # Provided with a receiver, the desired result and possibly some
@@ -67,15 +82,6 @@ module MethodFinder
     end
   end
 
-  def self.find_unknown(obj, &block)
-    find_methods(obj) do |met|
-      STDERR.puts(met) if debug?
-      obj.class.class_eval("alias :unknown #{met}", __FILE__, __LINE__)
-      subject = obj.dup rescue obj # dup doesn't work for immutable types
-      block.call(subject) rescue nil
-    end
-  end
-
   # Returns all currently defined modules and classes.
   def self.find_classes_and_modules
     with_redirected_streams do
@@ -99,6 +105,7 @@ module MethodFinder
   #
   #    MethodFinder.find_in_class_or_module(Math)
   #    #=> [:acos, :acosh, :asin ... :tanh]
+  # :doc:
   def self.find_in_class_or_module(klass, pattern = /./)
     klasses = Object.const_get(klass.to_s)
     class_methods = klasses.methods(false) rescue []
@@ -116,6 +123,18 @@ module MethodFinder
     klass.ancestors.each { |ancestor| ret -= blacklist[ancestor.to_s.intern] }
     ret.sort
   end
+  private_class_method :methods_to_try
+
+  # Used by Object.find_method
+  # :nodoc:
+  def self.find_unknown(obj, &block)
+    find_methods(obj) do |met|
+      STDERR.puts(met) if debug?
+      obj.class.class_eval("alias :unknown #{met}", __FILE__, __LINE__)
+      subject = obj.dup rescue obj # dup doesn't work for immutable types
+      block.call(subject) rescue nil
+    end
+  end
 
   def self.find_methods(obj)
     with_redirected_streams do
@@ -125,7 +144,6 @@ module MethodFinder
   end
   private_class_method :find_methods
 
-  # :nodoc:
   def self.with_redirected_streams
     orig_stdout = $stdout
     orig_stderr = $stderr
@@ -139,7 +157,6 @@ module MethodFinder
   end
   private_class_method :with_redirected_streams
 
-  # :nodoc:
   def self.select_blacklist(object)
     object.is_a?(Module) ? CLASS_METHOD_BLACKLIST : INSTANCE_METHOD_BLACKLIST
   end

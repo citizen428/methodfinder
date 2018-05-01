@@ -103,39 +103,19 @@ MethodFinder.find_in_class_or_module(Math)
 ## Troubleshooting
 
 If the `METHOD_FINDER_DEBUG` environment variable is set, the name of each
-candidate method is printed to stderr before it is invoked. This can be useful
+candidate method is printed to `STDERR` before it is invoked. This can be useful
 to identify (and blacklist) misbehaving methods.
 
 It can be set on the command line e.g.:
 
-```ruby
+```
 $ METHOD_FINDER_DEBUG=1 irb
 ```
 
-Or inside IRB/Pry:
+Or you can toggle it inside IRB/Pry:
 
 ```ruby
->> ENV['METHOD_FINDER_DEBUG'] = '1'
-```
-
-Alternatively both `Object#find_method` and `MethodFinder.find` support an
-optional keyword argument `debug` to toggle the behavior on a per-call basis
-(this argument defaults to the value of the environment variable described
-above):
-
-```ruby
->> 'a'.find_method(debug: true) { |n| n.unknown == 'A' }
-!
-!=
-[output shortened]
-yellowish
-#=> ["String#capitalize", "String#capitalize!", "String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
->> MethodFinder.find('a', 'A', debug: true)
-!
-!=
-[output shortened]
-yellowish
-#=> ["String#capitalize", "String#capitalize!", "String#swapcase", "String#swapcase!", "String#upcase", "String#upcase!"]
+>> MethodFinder.toggle_debug!
 ```
 
 ## Warning
