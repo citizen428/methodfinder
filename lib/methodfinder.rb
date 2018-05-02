@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require 'methodfinder/version'
 require 'stringio'
 
 class Object
