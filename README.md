@@ -152,17 +152,16 @@ the Rails console.
 
 ## Thanks
 
-* Matthew Lucas for [first packaging this as a gem](https://github.com/citizen428/methodfinder/pull/1).
-* Ryan Bates for [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
+* [Matthew Lucas](https://github.com/lucas-matt) for [first packaging this as a gem](https://github.com/citizen428/methodfinder/pull/1).
+* [Ryan Bates](https://github.com/ryanb) for [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
   what eventually became `Object#find_method`.
-* Jan Lelis for [implementing blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue/4).
-* Brian Morearty for pointing out an [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/pull/5)
+* [Jan Lelis](https://github.com/janlelis) for [implementing blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue/4).
+* [Brian Morearty](https://github.com/BMorearty) for pointing out an [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/pull/5)
   and adding the [blockless version](https://github.com/citizen428/methodfinder/pull/6)
   of `Object#find_method`.
-* Stefan Kanev for [adding Pry support](https://github.com/citizen428/methodfinder/pull/7).
-* chocolateboy for [compatibility fixes and updates](https://github.com/citizen428/methodfinder/pull/8),
-  [the initial debug implementation](https://github.com/citizen428/methodfinder/pull/9),
-  [fixes to keyword argument propagation](https://github.com/citizen428/methodfinder/pull/11).
+* [Stefan Kanev](https://github.com/skanev) for [adding Pry support](https://github.com/citizen428/methodfinder/pull/7).
+* [chocolateboy](https://github.com/chocolateboy) for [compatibility fixes and updates](https://github.com/citizen428/methodfinder/pull/8),
+  [the initial debug implementation](https://github.com/citizen428/methodfinder/pull/9), and [many smaller fixes](https://github.com/citizen428/methodfinder/pulls?utf8=✓&q=is%3Apr+author%3Achocolateboy).
 
 ## License
 
