@@ -6,16 +6,20 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
+- [Warning](#warning)
 - [Requirements](#requirements)
+- [Installation](#installation)
 - [Usage](#usage)
   - [MethodFinder.find](#methodfinderfind)
   - [Object#find_method](#objectfind_method)
     - [Blacklists](#blacklists)
   - [MethodFinder.find_classes_and_modules](#methodfinderfind_classes_and_modules)
   - [MethodFinder.find_in_class_or_module](#methodfinderfind_in_class_or_module)
-- [Troubleshooting](#troubleshooting)
-- [Warning](#warning)
-- [Thanks](#thanks)
+  - [Troubleshooting](#troubleshooting)
+- [Development](#development)
+- [Contributing](#contributing)
+  - [Noteworthy contributors](#noteworthy-contributors)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -23,11 +27,39 @@
 This project was originally inspired by Smalltalk's Method Finder, but
 additional features were added over time.
 
+## Warning
+
+Common sense not included!
+
+While I never had any problems with this, it's still better to be safe than
+sorry, so use this with caution and maybe not on production data.
+
+I initially wrote this for the students of the core Ruby course on
+[RubyLearning](http://rubylearning.org), so Rails is not of interest to me (not
+saying it doesn't work there, just that I test in plain IRB/Pry and not with
+the Rails console.
+
 ## Requirements
 
 Ruby 1.9.3+ (also works with Rubinius in 1.9 mode). Versions of `MethodFinder`
 up to 1.2.5 will also work with Ruby 1.8.7. Note: CI only runs newer versions
 of Ruby.
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'methodfinder'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install methodfinder
 
 ## Usage
 
@@ -120,7 +152,7 @@ MethodFinder.find_in_class_or_module(Math)
 #=> [:acos, :acosh, :asin ... :tanh]
 ```
 
-## Troubleshooting
+### Troubleshooting
 
 If the `METHOD_FINDER_DEBUG` environment variable is set, the name of each
 candidate method is printed to `STDERR` before it is invoked. This can be useful
@@ -138,19 +170,17 @@ Or you can toggle it inside IRB/Pry:
 >> MethodFinder.toggle_debug!
 ```
 
-## Warning
+## Development
 
-Common sense not included!
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-While I never had any problems with this, it's still better to be safe than
-sorry, so use this with caution and maybe not on production data.
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-I initially wrote this for the students of the core Ruby course on
-[RubyLearning](http://rubylearning.org), so Rails is not of interest to me (not
-saying it doesn't work there, just that I test in plain IRB/Pry and not with
-the Rails console.
+## Contributing
 
-## Thanks
+Bug reports and pull requests are welcome on GitHub at https://github.com/citizen428/methodfinder.
+
+### Noteworthy contributors
 
 * [Matthew Lucas](https://github.com/lucas-matt) for [first packaging this as a gem](https://github.com/citizen428/methodfinder/pull/1).
 * [Ryan Bates](https://github.com/ryanb) for [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
@@ -165,22 +195,5 @@ the Rails console.
 
 ## License
 
-Copyright (c) 2011-2018 Michael Kohl
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.

@@ -1,5 +1,8 @@
-pkg/
-*.rbc
-.bundle/
-doc/
-/vendor/
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
