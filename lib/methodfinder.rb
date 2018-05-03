@@ -50,10 +50,11 @@ module MethodFinder
 
   # true if METHOD_FINDER_DEBUG is truthy, false otherwise e.g.:
   #
-  #   $ METHOD_FINDER_DEBUG=1 irb # true
-  #   $ METHOD_FINDER_DEBUG=0 irb # false
-  #   $ METHOD_FINDER_DEBUG=  irb # false
-  @debug = ![nil, '0', ''].include?(ENV['METHOD_FINDER_DEBUG'])
+  #   $ METHOD_FINDER_DEBUG=1     irb # true
+  #   $ METHOD_FINDER_DEBUG=0     irb # false
+  #   $ METHOD_FINDER_DEBUG=false irb # false
+  #   $ METHOD_FINDER_DEBUG=      irb # false
+  @debug = !ENV.fetch('METHOD_FINDER_DEBUG', '').match?(/\A(0|false)?\z/i)
 
   # Checks whether or not debugging is currently enabled
   # :doc:
