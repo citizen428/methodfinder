@@ -1,13 +1,6 @@
 source 'https://rubygems.org'
 
-group :test do
-  gem 'minitest'
-end
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-group :test, :development do
-  gem 'rake'
-end
-
-group :development do
-  gem 'rdoc', platform: :rbx
-end
+# Specify your gem's dependencies in methodfinder.gemspec
+gemspec

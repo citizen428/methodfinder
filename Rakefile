@@ -1,14 +1,8 @@
 # frozen_string_literal: true
 
-require 'rake/testtask'
+require 'bundler/gem_tasks'
 require 'rdoc/task'
-require 'fileutils'
-
-GEMSPEC = 'methodfinder.gemspec'
-
-Rake::TestTask.new do |t|
-  t.pattern = 'test/test_*.rb'
-end
+require 'rake/testtask'
 
 Rake::RDocTask.new do |rd|
   rd.rdoc_dir = 'doc/'
@@ -20,22 +14,10 @@ Rake::RDocTask.new do |rd|
   rd.options << '--all'
 end
 
-def gemspec
-  @gemspec ||= eval(File.read(GEMSPEC), binding, GEMSPEC)
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'test'
+  t.libs << 'lib'
+  t.test_files = FileList['test/**/*_test.rb']
 end
 
-namespace :gem do
-  desc "Build the gem"
-  task :build => :rerdoc do
-    sh "gem build #{GEMSPEC}"
-    FileUtils.mkdir_p 'pkg'
-    FileUtils.mv "#{gemspec.name}-#{gemspec.version}.gem", 'pkg'
-  end
-
-  desc "Install the gem locally"
-  task :install => :build do
-    sh %{gem install pkg/#{gemspec.name}-#{gemspec.version}.gem}
-  end
-end
-
-task :default => [:test]
+task default: :test
