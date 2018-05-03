@@ -54,7 +54,7 @@ module MethodFinder
   #   $ METHOD_FINDER_DEBUG=0     irb # false
   #   $ METHOD_FINDER_DEBUG=false irb # false
   #   $ METHOD_FINDER_DEBUG=      irb # false
-  @debug = !ENV.fetch('METHOD_FINDER_DEBUG', '').match?(/\A(0|false)?\z/i)
+  @debug = !ENV.fetch('METHOD_FINDER_DEBUG', '').match(/\A(0|false)?\z/i)
 
   # Checks whether or not debugging is currently enabled
   # :doc:
