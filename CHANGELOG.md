@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased](https://github.com/citizen428/methodfinder/tree/HEAD)
+
+[Full Changelog](https://github.com/citizen428/methodfinder/compare/v2.2.1...HEAD)
+
+**Implemented enhancements:**
+
+- Cast the METHOD\_FINDER\_DEBUG environment variable to a boolean [\#17](https://github.com/citizen428/methodfinder/pull/17) ([chocolateboy](https://github.com/chocolateboy))
+- Switch to Bundler gem structure [\#16](https://github.com/citizen428/methodfinder/pull/16) ([citizen428](https://github.com/citizen428))
+
 ## [v2.2.1](https://github.com/citizen428/methodfinder/tree/v2.2.1) (2018-05-02)
 [Full Changelog](https://github.com/citizen428/methodfinder/compare/v2.2.0...v2.2.1)
 
