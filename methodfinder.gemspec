@@ -14,6 +14,12 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'http://citizen428.github.com/methodfinder/'
   spec.license       = 'MIT'
 
+  spec.metadata = {
+    'bug_tracker_uri' => 'https://github.com/citizen428/methodfinder/issues',
+    'source_code_uri' => 'https://github.com/citizen428/methodfinder',
+    'changelog_uri'   => 'https://github.com/citizen428/methodfinder/blob/master/CHANGELOG.md',
+  }
+
   spec.files = `git ls-files -z *.md LICENSE.txt lib`.split("\0")
   spec.require_paths = ['lib']
 
