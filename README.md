@@ -35,7 +35,7 @@ sorry, so use this with caution and maybe not on production data.
 I initially wrote this for the students of the core Ruby course on
 [RubyLearning](http://rubylearning.org), so Rails is not of interest to me (not
 saying it doesn't work there, just that I test in plain IRB/Pry and not with
-the Rails console.
+the Rails console).
 
 ## Requirements
 

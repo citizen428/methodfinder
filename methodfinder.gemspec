@@ -14,9 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'http://citizen428.github.com/methodfinder/'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
+  spec.files = `git ls-files -z *.md LICENSE.txt lib`.split("\0")
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.16'
