@@ -48,12 +48,18 @@ module MethodFinder
     CLASS_METHOD_BLACKLIST[:Object] << :pry
   end
 
-  @debug = ENV['METHOD_FINDER_DEBUG']
+  # true if METHOD_FINDER_DEBUG is truthy, false otherwise e.g.:
+  #
+  #   $ METHOD_FINDER_DEBUG=1     irb # true
+  #   $ METHOD_FINDER_DEBUG=0     irb # false
+  #   $ METHOD_FINDER_DEBUG=false irb # false
+  #   $ METHOD_FINDER_DEBUG=      irb # false
+  @debug = !ENV.fetch('METHOD_FINDER_DEBUG', '').match(/\A(0|false)?\z/i)
 
-  # Checkes whether or not debugging is currently enabled
+  # Checks whether or not debugging is currently enabled
   # :doc:
   def self.debug?
-    !!(@debug)
+    @debug
   end
 
   # Toggles the debug mode
