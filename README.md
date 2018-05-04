@@ -29,13 +29,12 @@ additional features were added over time.
 
 Common sense not included!
 
-While I never had any problems with this, it's still better to be safe than
-sorry, so use this with caution and maybe not on production data.
+While this gem should generally be safe to use, it's still better to be safe
+than sorry, so use this with caution and maybe not on production data.
 
-I initially wrote this for the students of the core Ruby course on
-[RubyLearning](http://rubylearning.org), so Rails is not of interest to me (not
-saying it doesn't work there, just that I test in plain IRB/Pry and not with
-the Rails console).
+This was initially written for the students of the core Ruby course on
+[RubyLearning](http://rubylearning.org), so it's generally not tested in a Rails
+console, just plain IRB/Pry.
 
 ## Requirements
 
