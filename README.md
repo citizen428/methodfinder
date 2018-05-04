@@ -6,7 +6,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Warning](#warning)
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -19,7 +18,6 @@
   - [Troubleshooting](#troubleshooting)
 - [Development](#development)
 - [Contributing](#contributing)
-  - [Noteworthy contributors](#noteworthy-contributors)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -37,7 +35,7 @@ sorry, so use this with caution and maybe not on production data.
 I initially wrote this for the students of the core Ruby course on
 [RubyLearning](http://rubylearning.org), so Rails is not of interest to me (not
 saying it doesn't work there, just that I test in plain IRB/Pry and not with
-the Rails console.
+the Rails console).
 
 ## Requirements
 
@@ -179,19 +177,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/citizen428/methodfinder.
-
-### Noteworthy contributors
-
-* [Matthew Lucas](https://github.com/lucas-matt) for [first packaging this as a gem](https://github.com/citizen428/methodfinder/pull/1).
-* [Ryan Bates](https://github.com/ryanb) for [suggesting](https://github.com/citizen428/methodfinder/issues/closed#issue/3)
-  what eventually became `Object#find_method`.
-* [Jan Lelis](https://github.com/janlelis) for [implementing blacklists](https://github.com/citizen428/methodfinder/issues/closed#issue/4).
-* [Brian Morearty](https://github.com/BMorearty) for pointing out an [incompatibility with Ruby 1.8.7](https://github.com/citizen428/methodfinder/pull/5)
-  and adding the [blockless version](https://github.com/citizen428/methodfinder/pull/6)
-  of `Object#find_method`.
-* [Stefan Kanev](https://github.com/skanev) for [adding Pry support](https://github.com/citizen428/methodfinder/pull/7).
-* [chocolateboy](https://github.com/chocolateboy) for [compatibility fixes and updates](https://github.com/citizen428/methodfinder/pull/8),
-  [the initial debug implementation](https://github.com/citizen428/methodfinder/pull/9), and [many smaller fixes](https://github.com/citizen428/methodfinder/pulls?utf8=✓&q=is%3Apr+author%3Achocolateboy).
 
 ## License
 
