@@ -1,4 +1,3 @@
-sudo: false
 language: ruby
 cache: bundler
 rvm:
@@ -7,11 +6,14 @@ rvm:
   - 2.7
   - jruby
   - rbx-3
+  - truffleruby
   - ruby-head
 before_install:
   - gem update --system
-  - gem install bundler
+  - gem install bundler:1.16.1
 matrix:
   allow_failures:
       - rvm: rbx-3
       - rvm: jruby
+      - rvm: truffleruby
+
