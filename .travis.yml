@@ -5,7 +5,6 @@ rvm:
   - 2.6
   - 2.7
   - jruby
-  - rbx-3
   - truffleruby
   - ruby-head
 before_install:
@@ -13,7 +12,6 @@ before_install:
   - gem install bundler:1.16.1
 matrix:
   allow_failures:
-      - rvm: rbx-3
       - rvm: jruby
       - rvm: truffleruby
 
