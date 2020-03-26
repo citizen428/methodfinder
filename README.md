@@ -36,12 +36,6 @@ This was initially written for the students of the core Ruby course on
 [RubyLearning](http://rubylearning.org), so it's generally not tested in a Rails
 console, just plain IRB/Pry.
 
-## Requirements
-
-Ruby 1.9.3+ (also works with Rubinius in 1.9 mode). Versions of `MethodFinder`
-up to 1.2.5 will also work with Ruby 1.8.7. Note: CI only runs newer versions
-of Ruby.
-
 ## Installation
 
 Add this line to your application's Gemfile:
