@@ -1,13 +1,12 @@
 # MethodFinder
 
-[![Build Status](https://travis-ci.org/citizen428/methodfinder.svg)](https://travis-ci.org/citizen428/methodfinder)
+![Build](https://github.com/citizen428/methodfinder/workflows/Build/badge.svg)
 [![Gem Version](https://img.shields.io/gem/v/methodfinder.svg)](https://rubygems.org/gems/methodfinder)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Warning](#warning)
-- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
   - [MethodFinder.find](#methodfinderfind)
@@ -174,4 +173,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/citize
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
