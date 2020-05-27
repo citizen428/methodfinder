@@ -3,28 +3,63 @@
 ![Build](https://github.com/citizen428/methodfinder/workflows/Build/badge.svg)
 [![Gem Version](https://img.shields.io/gem/v/methodfinder.svg)](https://rubygems.org/gems/methodfinder)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- toc -->
 
-- [Warning](#warning)
-- [Installation](#installation)
-- [Usage](#usage)
+- [NAME](#name)
+- [INSTALLATION](#installation)
+- [SYNOPSIS](#synopsis)
+- [DESCRIPTION](#description)
+  - [Warning](#warning)
+- [API](#api)
   - [MethodFinder.find](#methodfinderfind)
   - [Object#find_method](#objectfind_method)
     - [Blacklists](#blacklists)
   - [MethodFinder.find_classes_and_modules](#methodfinderfind_classes_and_modules)
   - [MethodFinder.find_in_class_or_module](#methodfinderfind_in_class_or_module)
-  - [Troubleshooting](#troubleshooting)
-- [Development](#development)
-- [Contributing](#contributing)
-- [License](#license)
+- [TROUBLESHOOTING](#troubleshooting)
+- [DEVELOPMENT](#development)
+- [CONTRIBUTING](#contributing)
+- [SEE ALSO](#see-also)
+  - [Gems](#gems)
+  - [Misc](#misc)
+- [VERSION](#version)
+- [AUTHOR](#author)
+- [LICENSE](#license)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- tocstop -->
 
-This project was originally inspired by Smalltalk's Method Finder, but
-additional features were added over time.
+## NAME
 
-## Warning
+MethodFinder - a Smalltalk-like Method Finder for Ruby
+
+## INSTALLATION
+
+    $ gem install methodfinder
+
+## SYNOPSIS
+
+```ruby
+Welcome to IRB. # or Pry
+
+>> 'Hello, world!'.find_method('HELLO, WORLD!')
+#=> ["String#upcase", "String#upcase!"]
+
+>> %w[a b c].find_method('c')
+#=> ["Array#last", "Array#max", "Array#pop"]
+
+>> %w[a b c].find_method { |it| it.unknown(2); it == %w[c] }
+#=> ["Array#shift"]
+```
+
+## DESCRIPTION
+
+A Smalltalk-like Method Finder for Ruby for use in your `~/.irbrc` or
+`~/.pryrc`.
+
+This project was originally inspired by Smalltalk's Method
+Finder, but additional features have been added over time.
+
+### Warning
 
 Common sense not included!
 
@@ -32,26 +67,10 @@ While this gem should generally be safe to use, it's still better to be safe
 than sorry, so use this with caution and maybe not on production data.
 
 This was initially written for the students of the core Ruby course on
-[RubyLearning](http://rubylearning.org), so it's generally not tested in a Rails
-console, just plain IRB/Pry.
+[RubyLearning](http://web.archive.org/web/20151218180403/http://rubylearning.org/classes/),
+so it's generally not tested in a Rails console, just plain IRB/Pry.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'methodfinder'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install methodfinder
-
-## Usage
+## API
 
 ### MethodFinder.find
 
@@ -142,7 +161,7 @@ MethodFinder.find_in_class_or_module(Math)
 #=> [:acos, :acosh, :asin ... :tanh]
 ```
 
-### Troubleshooting
+## TROUBLESHOOTING
 
 If the `METHOD_FINDER_DEBUG` environment variable is set, the name of each
 candidate method is printed to `STDERR` before it is invoked. This can be useful
@@ -160,16 +179,42 @@ Or you can toggle it inside IRB/Pry:
 >> MethodFinder.toggle_debug!
 ```
 
-## Development
+## DEVELOPMENT
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+`rake test` to run the tests. You can also run `bin/console` for an interactive
+prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To
+release a new version, update the version number in `version.rb`, and then run
+`bundle exec rake release`, which will create a git tag for the version, push
+git commits and tags, and push the `.gem` file to
+[rubygems.org](https://rubygems.org).
 
-## Contributing
+## CONTRIBUTING
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/citizen428/methodfinder.
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/citizen428/methodfinder.
 
-## License
+## SEE ALSO
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+### Gems
+
+- [irbtools](https://github.com/janlelis/irbtools) - improvements for Ruby's IRB console (includes methodfinder)
+
+### Misc
+
+- [Other Implementations](https://github.com/citizen428/methodfinder/wiki/Other-Implementations) - a list of related projects in Ruby and other languages
+
+## VERSION
+
+2.2.1
+
+## AUTHOR
+
+- [Michael Kohl](https://github.com/citizen428)
+
+## LICENSE
+
+The gem is available as open source under the terms of the [MIT
+License](https://opensource.org/licenses/MIT).
