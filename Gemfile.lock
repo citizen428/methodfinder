@@ -51,7 +51,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
+  bundler (>= 2.1.0)
   github_changelog_generator (~> 1.14)
   methodfinder!
   minitest (~> 5.0)
@@ -59,4 +59,4 @@ DEPENDENCIES
   rdoc (~> 6.0)
 
 BUNDLED WITH
-   1.16.1
+   2.2.15
