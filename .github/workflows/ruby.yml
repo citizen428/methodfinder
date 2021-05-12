@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        ruby: ['2.5', '2.6', '2.7']
+        ruby: ['2.6', '2.7', '3.0']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby versions
@@ -21,6 +21,6 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
     - name: Build and test with Rake
       run: |
-        gem install bundler:1.16.1
+        gem install bundler
         bundle install --jobs 4 --retry 3
         bundle exec rake
