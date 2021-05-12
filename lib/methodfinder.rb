@@ -35,17 +35,17 @@ module MethodFinder
     cycle: [1] # prevent cycling forever
   }.freeze
 
-  # Blacklisting methods, e.g. { :Object => [:ri, :vim] }
-  INSTANCE_METHOD_BLACKLIST = Hash.new { |h, k| h[k] = [] }
-  # Blacklisting class methods
-  CLASS_METHOD_BLACKLIST = Hash.new { |h, k| h[k] = [] }
+  # Ignoring methods, e.g. { :Object => [:ri, :vim] }
+  INSTANCE_METHOD_IGNORELIST = Hash.new { |h, k| h[k] = [] }
+  # Ignoring class methods
+  CLASS_METHOD_IGNORELIST = Hash.new { |h, k| h[k] = [] }
 
-  INSTANCE_METHOD_BLACKLIST[:Object] << :find_method # prevent stack overflow
-  INSTANCE_METHOD_BLACKLIST[:Object] << :gem # funny testing stuff w/ Bundler
+  INSTANCE_METHOD_IGNORELIST[:Object] << :find_method # prevent stack overflow
+  INSTANCE_METHOD_IGNORELIST[:Object] << :gem # funny testing stuff w/ Bundler
 
   if defined?(Pry)
-    INSTANCE_METHOD_BLACKLIST[:Object] << :pry
-    CLASS_METHOD_BLACKLIST[:Object] << :pry
+    INSTANCE_METHOD_IGNORELIST[:Object] << :pry
+    CLASS_METHOD_IGNORELIST[:Object] << :pry
   end
 
   # true if METHOD_FINDER_DEBUG is truthy, false otherwise e.g.:
@@ -126,10 +126,10 @@ module MethodFinder
   # Returns a list of candidate methods for a given object. Added by Jan Lelis.
   def self.methods_to_try(obj)
     ret = obj.methods
-    blacklist = select_blacklist(obj)
+    ignorelist = select_ignorelist(obj)
     klass = obj.is_a?(Module) ? obj : obj.class
 
-    klass.ancestors.each { |ancestor| ret -= blacklist[ancestor.to_s.intern] }
+    klass.ancestors.each { |ancestor| ret -= ignorelist[ancestor.to_s.intern] }
     ret.sort
   end
   private_class_method :methods_to_try
@@ -166,8 +166,8 @@ module MethodFinder
   end
   private_class_method :with_redirected_streams
 
-  def self.select_blacklist(object)
-    object.is_a?(Module) ? CLASS_METHOD_BLACKLIST : INSTANCE_METHOD_BLACKLIST
+  def self.select_ignorelist(object)
+    object.is_a?(Module) ? CLASS_METHOD_IGNORELIST : INSTANCE_METHOD_IGNORELIST
   end
-  private_class_method :select_blacklist
+  private_class_method :select_ignorelist
 end

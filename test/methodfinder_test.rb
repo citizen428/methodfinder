@@ -34,9 +34,9 @@ class TestMethodFinder < Minitest::Test
   end
 
   def test_instance_interface_with_params
-    # blacklisting method for Rubinius
+    # ignoring method for Rubinius
     if Object.const_defined?(:RUBY_ENGINE) && RUBY_ENGINE == 'rbx'
-      MethodFinder::INSTANCE_METHOD_BLACKLIST[:Array] << :new_reserved
+      MethodFinder::INSTANCE_METHOD_IGNORELIST[:Array] << :new_reserved
     end
 
     result = %w[a b c].find_method(%w[a b], %w[c])
@@ -61,9 +61,9 @@ class TestMethodFinder < Minitest::Test
     assert MethodFinder.find_in_class_or_module(Array).size > 10
   end
 
-  def test_ignores_items_in_blacklist
+  def test_ignores_items_in_ignorelist
     assert MethodFinder.find([[2, 3, 4]], [2, 3, 4]).include?('Array#flatten')
-    MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :flatten
+    MethodFinder::INSTANCE_METHOD_IGNORELIST[:Object] << :flatten
     assert !MethodFinder.find([[2, 3, 4]], [2, 3, 4]).include?('Array#flatten')
   end
 

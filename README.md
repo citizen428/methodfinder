@@ -13,7 +13,7 @@
 - [API](#api)
   - [MethodFinder.find](#methodfinderfind)
   - [Object#find_method](#objectfind_method)
-    - [Blacklists](#blacklists)
+    - [Ignorelists](#ignorelists)
   - [MethodFinder.find_classes_and_modules](#methodfinderfind_classes_and_modules)
   - [MethodFinder.find_in_class_or_module](#methodfinderfind_in_class_or_module)
 - [TROUBLESHOOTING](#troubleshooting)
@@ -113,19 +113,18 @@ calling `MethodFinder.find`.
 #=> ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", "Fixnum#[]", "Integer#gcd", "Fixnum#modulo", "Numeric#remainder"]
 ```
 
-#### Blacklists
+#### Ignorelists
 
 You can exclude methods from being tried by editing the hashes
-`MethodFinder::INSTANCE_METHOD_BLACKLIST` and
-`MethodFinder::CLASS_METHOD_BLACKLIST`. Both use the class/module as key and
+`MethodFinder::INSTANCE_METHOD_IGNORELIST` and
+`MethodFinder::CLASS_METHOD_IGNORELIST`. Both use the class/module as key and
 an array of method names as values (note that class, module and method names
 have to be symbols).
 
-For example, to blacklist the instance method `shutdown` of `Object`, you
-would do
+For example, to ignore the instance method `shutdown` of `Object`, you would do
 
 ```ruby
-MethodFinder::INSTANCE_METHOD_BLACKLIST[:Object] << :shutdown
+MethodFinder::INSTANCE_METHOD_IGNORELIST[:Object] << :shutdown
 ```
 
 This might come in handy when using `MethodFinder` together with other gems as
@@ -165,7 +164,7 @@ MethodFinder.find_in_class_or_module(Math)
 
 If the `METHOD_FINDER_DEBUG` environment variable is set, the name of each
 candidate method is printed to `STDERR` before it is invoked. This can be useful
-to identify (and blacklist) misbehaving methods.
+to identify (and consequently ignore) misbehaving methods.
 
 It can be set on the command line e.g.:
 

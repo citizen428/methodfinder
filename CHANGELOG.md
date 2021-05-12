@@ -55,7 +55,7 @@
 
 **Implemented enhancements:**
 
-- Add a method blacklist [\#4](https://github.com/citizen428/methodfinder/pull/4) ([janlelis](https://github.com/janlelis))
+- Add a method ignore list [\#4](https://github.com/citizen428/methodfinder/pull/4) ([janlelis](https://github.com/janlelis))
 
 ## [v1.2.0](https://github.com/citizen428/methodfinder/tree/v1.2.0) (2011-04-08)
 [Full Changelog](https://github.com/citizen428/methodfinder/compare/v1.1.1...v1.2.0)
