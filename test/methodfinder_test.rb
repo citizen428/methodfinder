@@ -23,7 +23,10 @@ class TestMethodFinder < Minitest::Test
   def test_block_interface
     assert_equal(
       ['Array#delete_at', 'Array#slice!'],
-      %w[a b c].find_method { |a| a.unknown(1); a == %w[a c] }
+      %w[a b c].find_method do |a|
+        a.unknown(1)
+        a == %w[a c]
+      end
     )
   end
 

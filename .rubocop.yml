@@ -1,0 +1,19 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.6
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DocumentDynamicEvalDefinition:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+

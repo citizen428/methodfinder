@@ -24,6 +24,7 @@ class Object
   #    #=> ["Fixnum#%", "Fixnum#<=>", "Fixnum#>>", ...]
   def find_method(*args, &block)
     return MethodFinder.find(self, *args) unless block_given?
+
     MethodFinder.find_unknown(self, &block)
   end
 end
@@ -82,12 +83,21 @@ module MethodFinder
   #    #=> ["Array#collect", "Array#collect!", "Enumerable#collect_concat", ...]
   def self.find(obj, res, *args, &block)
     find_methods(obj) do |met|
-      o = obj.dup rescue obj
+      o = begin
+        obj.dup
+      rescue StandardError
+        obj
+      end
       m = o.method(met)
       next unless m.arity <= args.size
-      STDERR.puts(met) if debug?
+
+      warn(met) if debug?
       a = args.empty? && ARGS.key?(met) ? ARGS[met] : args
-      m.call(*a, &block) == res rescue nil
+      begin
+        m.call(*a, &block) == res
+      rescue StandardError
+        nil
+      end
     end
   end
 
@@ -95,7 +105,9 @@ module MethodFinder
   def self.find_classes_and_modules
     with_redirected_streams do
       constants = Object.constants.sort.map { |c| Object.const_get(c) }
-      constants.select { |c| c.class == Class || c.class == Module }
+      constants.select do |c|
+        c.instance_of?(Class) || c.instace_of?(Module)
+      end
     end
   end
 
@@ -117,7 +129,11 @@ module MethodFinder
   # :doc:
   def self.find_in_class_or_module(klass, pattern = /./)
     klasses = Object.const_get(klass.to_s)
-    class_methods = klasses.methods(false) rescue []
+    class_methods = begin
+      klasses.methods(false)
+    rescue StandardError
+      []
+    end
     instance_methods = klasses.instance_methods(false)
     all_methods = class_methods + instance_methods
     all_methods.grep(/#{pattern}/).sort
@@ -138,16 +154,24 @@ module MethodFinder
   # :nodoc:
   def self.find_unknown(obj, &block)
     find_methods(obj) do |met|
-      STDERR.puts(met) if debug?
+      warn(met) if debug?
       obj.class.class_eval("alias :unknown #{met}", __FILE__, __LINE__)
-      subject = obj.dup rescue obj # dup doesn't work for immutable types
-      block.call(subject) rescue nil
+      subject = begin
+        obj.dup
+      rescue StandardError # dup doesn't work for immutable types
+        obj
+      end
+      begin
+        block.call(subject)
+      rescue StandardError
+        nil
+      end
     end
   end
 
-  def self.find_methods(obj)
+  def self.find_methods(obj, &block)
     with_redirected_streams do
-      found = methods_to_try(obj).select { |met| yield(met) }
+      found = methods_to_try(obj).select(&block)
       found.map { |m| "#{obj.method(m).owner}##{m}" }
     end
   end
