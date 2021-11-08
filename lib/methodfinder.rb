@@ -40,6 +40,12 @@ module MethodFinder
   INSTANCE_METHOD_IGNORELIST = Hash.new { |h, k| h[k] = [] }
   # Ignoring class methods
   CLASS_METHOD_IGNORELIST = Hash.new { |h, k| h[k] = [] }
+  # IGNORING classes
+  CLASS_IGNORELIST = []
+
+  if RUBY_VERSION.start_with?('3')
+    CLASS_IGNORELIST << :OrderedSet # this moved to a gem
+  end
 
   INSTANCE_METHOD_IGNORELIST[:Object] << :find_method # prevent stack overflow
   INSTANCE_METHOD_IGNORELIST[:Object] << :gem # funny testing stuff w/ Bundler
@@ -104,7 +110,8 @@ module MethodFinder
   # Returns all currently defined modules and classes.
   def self.find_classes_and_modules
     with_redirected_streams do
-      constants = Object.constants.sort.map { |c| Object.const_get(c) }
+      candidates = Object.constants.sort - CLASS_IGNORELIST
+      constants = candidates.map { |c| Object.const_get(c) }
       constants.select do |c|
         c.instance_of?(Class) || c.instance_of?(Module)
       end
