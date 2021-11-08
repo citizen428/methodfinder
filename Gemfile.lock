@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    methodfinder (2.2.1)
+    methodfinder (2.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -60,4 +60,4 @@ DEPENDENCIES
   rdoc (~> 6.0)
 
 BUNDLED WITH
-   2.2.15
+   2.2.22
