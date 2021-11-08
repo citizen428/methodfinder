@@ -106,7 +106,7 @@ module MethodFinder
     with_redirected_streams do
       constants = Object.constants.sort.map { |c| Object.const_get(c) }
       constants.select do |c|
-        c.instance_of?(Class) || c.instace_of?(Module)
+        c.instance_of?(Class) || c.instance_of?(Module)
       end
     end
   end
