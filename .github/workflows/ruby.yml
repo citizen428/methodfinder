@@ -1,4 +1,4 @@
-name: Build
+name: Test
 
 on:
   push:
@@ -7,20 +7,20 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        ruby: ['2.6', '2.7', '3.0']
+        ruby: ['2.6', '2.7', '3.0', '3.1']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby versions
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
     - name: Build and test with Rake
       run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
         bundle exec rake
