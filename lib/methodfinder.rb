@@ -33,7 +33,8 @@ module MethodFinder
   # Default arguments for methods
   # :nodoc:
   ARGS = {
-    cycle: [1] # prevent cycling forever
+    cycle: [1], # prevent cycling forever
+    tally: [],  # Since Ruby 3.1 Enumberable tally takes an optional hash
   }.freeze
 
   # Ignoring methods, e.g. { :Object => [:ri, :vim] }
@@ -98,7 +99,7 @@ module MethodFinder
       next unless m.arity <= args.size
 
       warn(met) if debug?
-      a = args.empty? && ARGS.key?(met) ? ARGS[met] : args
+      a = ARGS.key?(met) ? ARGS[met] : args
       begin
         m.call(*a, &block) == res
       rescue StandardError
