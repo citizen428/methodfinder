@@ -187,8 +187,11 @@ module MethodFinder
   def self.with_redirected_streams
     orig_stdout = $stdout
     orig_stderr = $stderr
-    $stdout = StringIO.new
-    $stderr = StringIO.new
+
+    unless debug?
+      $stdout = StringIO.new
+      $stderr = StringIO.new
+    end
 
     yield
   ensure
