@@ -207,7 +207,7 @@ https://github.com/citizen428/methodfinder.
 
 ## VERSION
 
-2.2.1
+2.2.4
 
 ## AUTHOR
 
