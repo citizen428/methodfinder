@@ -1,6 +1,6 @@
 # MethodFinder
 
-![Build](https://github.com/citizen428/methodfinder/workflows/Build/badge.svg)
+[![builds.sr.ht status](https://builds.sr.ht/~citizen428/methodfinder.svg)](https://builds.sr.ht/~citizen428/methodfinder?)
 [![Gem Version](https://img.shields.io/gem/v/methodfinder.svg)](https://rubygems.org/gems/methodfinder)
 
 <!-- toc -->
