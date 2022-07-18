@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    methodfinder (2.2.3)
+    methodfinder (2.2.4)
 
 GEM
   remote: https://rubygems.org/

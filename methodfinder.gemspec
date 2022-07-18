@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary     = 'A Smalltalk-like Method Finder for Ruby'
   spec.description = 'A Smalltalk-like Method Finder for Ruby with some extra features'
-  spec.homepage    = 'https://git.sr.ht/~citizen428/methodfinder'
+  spec.homepage    = 'https://sr.ht/~citizen428/methodfinder/'
   spec.license     = 'MIT'
 
   spec.metadata = {

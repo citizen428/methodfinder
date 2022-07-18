@@ -1,0 +1,14 @@
+image: alpine/edge
+packages: 
+    - ruby
+    - ruby-bundler
+sources: 
+    - https://git.sr.ht/~citizen428/methodfinder
+tasks:
+    - setup: |
+        cd methodfinder
+        bundle install
+    - test: |
+        cd methodfinder
+        bundle exec rake test
+
