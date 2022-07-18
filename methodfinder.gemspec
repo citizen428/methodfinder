@@ -10,12 +10,13 @@ Gem::Specification.new do |spec|
 
   spec.summary     = 'A Smalltalk-like Method Finder for Ruby'
   spec.description = 'A Smalltalk-like Method Finder for Ruby with some extra features'
-  spec.homepage    = 'http://citizen428.github.com/methodfinder/'
+  spec.homepage    = 'https://git.sr.ht/~citizen428/methodfinder'
   spec.license     = 'MIT'
 
   spec.metadata = {
-    'bug_tracker_uri' => 'https://github.com/citizen428/methodfinder/issues',
-    'source_code_uri' => 'https://github.com/citizen428/methodfinder',
+    'bug_tracker_uri' => 'https://todo.sr.ht/~citizen428/methodfinder',
+    'source_code_uri' => 'https://git.sr.ht/~citizen428/methodfinder/tree',
+    'mailing_list_uri' => 'https://lists.sr.ht/~citizen428/public-inbox'
   }
 
   spec.files = `git ls-files -z *.md LICENSE.txt lib`.split("\0")
