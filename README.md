@@ -205,7 +205,7 @@ If you really have to you can also contribute via https://github.com/citizen428/
 
 ### Misc
 
-- [Other Implementations](https://github.com/citizen428/methodfinder/wiki/Other-Implementations) - a list of related projects in Ruby and other languages
+- [Other Implementations](https://man.sr.ht/~citizen428/MethodFinder/) - a list of related projects in Ruby and other languages
 
 ## VERSION
 
@@ -213,7 +213,7 @@ If you really have to you can also contribute via https://github.com/citizen428/
 
 ## AUTHOR
 
-- [Michael Kohl](https://github.com/citizen428)
+- [Michael Kohl](https://citizen428.net/)
 
 ## LICENSE
 
