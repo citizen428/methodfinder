@@ -192,8 +192,10 @@ git commits and tags, and push the `.gem` file to
 
 ## CONTRIBUTING
 
-Bug reports and pull requests are welcome on GitHub at
-https://github.com/citizen428/methodfinder.
+Development happens primarily on [Sourcehut](https://sr.ht/~citizen428/methodfinder/) where you can
+[file bugs](https://sr.ht/~citizen428/methodfinder/trackers), [discuss on the mailing list](https://sr.ht/~citizen428/methodfinder/lists) or [send patches](https://git.sr.ht/~citizen428/methodfinder/send-email).
+
+If you really have to you can also contribute via https://github.com/citizen428/methodfinder, but I really prefer Sourcehut.
 
 ## SEE ALSO
 
