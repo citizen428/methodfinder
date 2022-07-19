@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     'bug_tracker_uri' => 'https://todo.sr.ht/~citizen428/methodfinder',
     'source_code_uri' => 'https://git.sr.ht/~citizen428/methodfinder/tree',
-    'mailing_list_uri' => 'https://lists.sr.ht/~citizen428/public-inbox'
+    'mailing_list_uri' => 'https://lists.sr.ht/~citizen428/public-inbox',
     'wiki_uri' => 'https://man.sr.ht/~citizen428/MethodFinder/'
   }
 
