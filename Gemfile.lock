@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    methodfinder (2.2.4)
+    methodfinder (2.2.5)
 
 GEM
   remote: https://rubygems.org/
@@ -11,11 +11,11 @@ GEM
     parallel (1.21.0)
     parser (3.1.1.0)
       ast (~> 2.4.1)
-    psych (4.0.3)
+    psych (5.1.2)
       stringio
     rainbow (3.1.1)
     rake (13.0.6)
-    rdoc (6.4.0)
+    rdoc (6.7.0)
       psych (>= 4.0.0)
     regexp_parser (2.2.1)
     rexml (3.2.8)
@@ -32,7 +32,7 @@ GEM
     rubocop-ast (1.16.0)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
-    stringio (3.0.6)
+    stringio (3.1.1)
     strscan (3.1.0)
     unicode-display_width (2.1.0)
 
@@ -44,7 +44,7 @@ DEPENDENCIES
   methodfinder!
   minitest (~> 5.0)
   rake (~> 13.0)
-  rdoc (~> 6.3)
+  rdoc (~> 6.5)
   rubocop (~> 1.22)
 
 BUNDLED WITH
