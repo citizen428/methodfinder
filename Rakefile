@@ -20,4 +20,11 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList['test/**/*_test.rb']
 end
 
+namespace :rbs do
+  desc 'Validate RBS signatures'
+  task :validate do
+    sh 'bundle exec rbs validate'
+  end
+end
+
 task default: :test
