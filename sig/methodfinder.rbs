@@ -1,0 +1,25 @@
+class Object
+  def find_method:
+    (top result, *top args) -> Array[String]
+    | (*top args) { (self receiver) -> top } -> Array[String]
+end
+
+module MethodFinder
+  VERSION: String
+
+  INSTANCE_METHOD_IGNORELIST: Hash[Symbol, Array[Symbol]]
+  CLASS_METHOD_IGNORELIST: Hash[Symbol, Array[Symbol]]
+  CLASS_IGNORELIST: Array[Symbol]
+
+  def self.debug?: () -> bool
+
+  def self.toggle_debug!: () -> bool
+
+  def self.find:
+    (top receiver, top result, *top args) ?{ (*top) -> top } -> Array[String]
+
+  def self.find_classes_and_modules: () -> Array[Module]
+
+  def self.find_in_class_or_module:
+    (Module | Symbol | String klass, ?String | Regexp pattern) -> Array[Symbol]
+end

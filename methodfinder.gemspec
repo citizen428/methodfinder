@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
     'rubygems_mfa_required' => 'true'
   }
 
-  spec.files = `git ls-files -z *.md LICENSE.txt lib`.split("\0")
+  spec.files = Dir['*.md', 'LICENSE.txt', 'lib/**/*', 'sig/**/*']
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 3.3'
 end
